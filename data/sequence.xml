@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_care_service_request" model="ir.sequence">
+        <field name="name">Care Service Request</field>
+        <field name="code">care.service.request</field>
+        <field name="prefix">CR/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_care_package_entitlement" model="ir.sequence">
+        <field name="name">Care Package Entitlement</field>
+        <field name="code">care.package.entitlement</field>
+        <field name="prefix">PE/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

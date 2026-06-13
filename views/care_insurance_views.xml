@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="care_insurance_view_list" model="ir.ui.view">
+        <field name="name">care.insurance.list</field>
+        <field name="model">care.insurance</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="insurance_type"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="care_insurance_view_form" model="ir.ui.view">
+        <field name="name">care.insurance.form</field>
+        <field name="model">care.insurance</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="insurance_type"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="care_insurance_view_search" model="ir.ui.view">
+        <field name="name">care.insurance.search</field>
+        <field name="model">care.insurance</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <filter name="primary" string="بیمه پایه" domain="[('insurance_type', '=', 'primary')]"/>
+                <filter name="supplementary" string="بیمه تکمیلی" domain="[('insurance_type', '=', 'supplementary')]"/>
+                <group>
+                    <filter name="group_type" string="نوع" context="{'group_by': 'insurance_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="care_insurance_action" model="ir.actions.act_window">
+        <field name="name">بیمه‌ها</field>
+        <field name="res_model">care.insurance</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_type': 1}</field>
+    </record>
+</odoo>

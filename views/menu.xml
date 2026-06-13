@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_home_care_root"
+              name="مراقبت در منزل"
+              sequence="45"
+              groups="home_care.group_care_user,home_care.group_care_provider"/>
+
+    <menuitem id="menu_care_requests"
+              name="درخواست‌ها"
+              parent="menu_home_care_root"
+              action="care_service_request_action"
+              sequence="10"
+              groups="home_care.group_care_user"/>
+
+    <record id="care_service_request_action_provider" model="ir.actions.server">
+        <field name="name">درخواست‌های من (پذیرنده)</field>
+        <field name="model_id" ref="model_care_service_request"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_view_my_provider_requests()</field>
+        <field name="group_ids" eval="[(4, ref('home_care.group_care_provider'))]"/>
+    </record>
+
+    <record id="care_service_request_action_provider_tasks" model="ir.actions.server">
+        <field name="name">کارهای من</field>
+        <field name="model_id" ref="model_care_service_request"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_view_my_provider_tasks()</field>
+        <field name="group_ids" eval="[(4, ref('home_care.group_care_provider'))]"/>
+    </record>
+
+    <menuitem id="menu_care_my_provider_tasks"
+              name="کارهای من"
+              parent="menu_home_care_root"
+              action="care_service_request_action_provider_tasks"
+              sequence="11"
+              groups="home_care.group_care_provider"/>
+
+    <menuitem id="menu_care_my_provider_requests"
+              name="درخواست‌های من (پذیرنده)"
+              parent="menu_home_care_root"
+              action="care_service_request_action_provider"
+              sequence="12"
+              groups="home_care.group_care_provider"/>
+
+    <menuitem id="menu_care_entitlements"
+              name="سهمیه پکیج‌ها"
+              parent="menu_home_care_root"
+              action="care_entitlement_action"
+              sequence="20"
+              groups="home_care.group_care_user"/>
+
+    <menuitem id="menu_care_config"
+              name="پیکربندی"
+              parent="menu_home_care_root"
+              sequence="90"
+              groups="home_care.group_care_manager"/>
+
+    <menuitem id="menu_care_categories"
+              name="دسته‌بندی درخواست"
+              parent="menu_care_config"
+              action="care_request_category_action"
+              sequence="10"/>
+
+    <menuitem id="menu_care_workflows"
+              name="فرآیندها"
+              parent="menu_care_config"
+              action="care_workflow_template_action"
+              sequence="20"/>
+
+    <menuitem id="menu_care_teams"
+              name="تیم‌ها"
+              parent="menu_care_config"
+              action="care_team_action"
+              sequence="30"/>
+
+    <menuitem id="menu_care_insurances"
+              name="بیمه‌ها"
+              parent="menu_care_config"
+              action="care_insurance_action"
+              sequence="40"/>
+</odoo>
