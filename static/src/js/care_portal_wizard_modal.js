@@ -11,35 +11,13 @@ publicWidget.registry.HomeCareInvoiceWizardModal = publicWidget.Widget.extend({
 
     _onOpenWizard(ev) {
         ev.preventDefault();
-        const requestId = ev.currentTarget.dataset.requestId;
-        if (!requestId) {
-            return;
-        }
         const modalEl = document.getElementById('careInvoiceWizardModal');
-        const iframe = document.getElementById('careInvoiceWizardFrame');
-        if (!modalEl || !iframe) {
+        if (!modalEl) {
             return;
         }
-        iframe.src = 'about:blank';
         const Modal = window.Modal;
-        if (!Modal) {
-            iframe.src = `/my/care/provider/requests/${requestId}/invoice/wizard/embed`;
-            return;
+        if (Modal) {
+            Modal.getOrCreateInstance(modalEl).show();
         }
-        Modal.getOrCreateInstance(modalEl).show();
-        iframe.src = `/my/care/provider/requests/${requestId}/invoice/wizard/embed`;
-    },
-
-    start() {
-        const modalEl = document.getElementById('careInvoiceWizardModal');
-        if (modalEl) {
-            modalEl.addEventListener('hidden.bs.modal', () => {
-                const iframe = document.getElementById('careInvoiceWizardFrame');
-                if (iframe) {
-                    iframe.src = 'about:blank';
-                }
-            });
-        }
-        return this._super(...arguments);
     },
 });

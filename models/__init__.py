@@ -13,4 +13,5 @@ from . import care_request_team
 from . import care_request_invoice
 from . import care_insurance
 from . import account_move
+from . import account_move_line
 from . import sale_order

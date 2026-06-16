@@ -1,15 +1,15 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 
 class CarePackageLine(models.Model):
     _name = 'care.package.line'
-    _description = 'خط پکیج مراقبت'
+    _description = 'Care Package Line'
     _order = 'package_product_id, sequence, id'
 
     package_product_id = fields.Many2one(
         'product.template',
-        string='پکیج',
+        string='Package',
         required=True,
         ondelete='cascade',
         domain=[('is_care_package', '=', True)],
@@ -17,18 +17,18 @@ class CarePackageLine(models.Model):
     sequence = fields.Integer(default=10)
     included_service_id = fields.Many2one(
         'product.product',
-        string='خدمت زیرمجموعه',
+        string='Included Service',
         required=True,
         domain=[('is_care_service', '=', True)],
     )
     quantity = fields.Float(
-        string='تعداد',
+        string='Quantity',
         default=1.0,
         required=True,
     )
     category_id = fields.Many2one(
         'care.request.category',
-        string='دسته‌بندی',
+        string='Category',
         related='included_service_id.request_category_id',
         store=True,
         readonly=True,
@@ -38,10 +38,10 @@ class CarePackageLine(models.Model):
     def _check_quantity(self):
         for line in self:
             if line.quantity <= 0:
-                raise ValidationError('تعداد خدمت در پکیج باید بزرگ‌تر از صفر باشد.')
+                raise ValidationError(_('Package service quantity must be greater than zero.'))
 
     @api.constrains('included_service_id', 'package_product_id')
     def _check_not_self_reference(self):
         for line in self:
             if line.included_service_id.product_tmpl_id == line.package_product_id:
-                raise ValidationError('پکیج نمی‌تواند شامل خودش باشد.')
+                raise ValidationError(_('A package cannot include itself.'))

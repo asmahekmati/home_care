@@ -30,7 +30,7 @@ class CustomerPortal(CustomerPortal):
     def _check_customer_request_access(self, care_request):
         care_request.check_access('read')
         if care_request.partner_id.commercial_partner_id != request.env.user.partner_id.commercial_partner_id:
-            raise AccessError(_('دسترسی به این درخواست ندارید.'))
+            raise AccessError(_('You do not have access to this request.'))
 
     def _validate_insurance_id(self, insurance_id, insurance_type):
         if not insurance_id or not str(insurance_id).strip().isdigit():
@@ -41,7 +41,7 @@ class CustomerPortal(CustomerPortal):
             or not insurance.active
             or insurance.insurance_type != insurance_type
         ):
-            raise AccessError(_('بیمه انتخاب‌شده معتبر نیست.'))
+            raise AccessError(_('The selected insurance is not valid.'))
         return insurance.id
 
     def _prepare_home_portal_values(self, counters):
@@ -206,9 +206,9 @@ class CustomerPortal(CustomerPortal):
 
         try:
             if not preferred_start or not preferred_end:
-                raise UserError(_('بازه زمانی ترجیحی (شروع و پایان) الزامی است.'))
+                raise UserError(_('Preferred time window (start and end) is required.'))
             if preferred_end <= preferred_start:
-                raise UserError(_('پایان بازه ترجیحی باید بعد از شروع آن باشد.'))
+                raise UserError(_('Preferred end time must be after the start time.'))
         except (UserError, ValidationError) as exc:
             return request.redirect('/my/care/request/new?error=%s' % exc.args[0])
 
@@ -248,10 +248,10 @@ class CustomerPortal(CustomerPortal):
                 entitlement = request.env['care.package.entitlement'].browse(entitlement_id)
                 entitlement.check_access('read')
                 if entitlement.partner_id.commercial_partner_id != partner.commercial_partner_id:
-                    raise AccessError(_('دسترسی به این پکیج ندارید.'))
+                    raise AccessError(_('You do not have access to this package.'))
                 product = request.env['product.product'].browse(product_id)
                 if product not in entitlement.get_available_service_products():
-                    raise UserError(_('این خدمت در سهمیه پکیج شما موجود نیست.'))
+                    raise UserError(_('This service is not available in your package entitlement.'))
                 vals.update({
                     'entitlement_id': entitlement.id,
                     'product_id': product.id,
@@ -260,9 +260,9 @@ class CustomerPortal(CustomerPortal):
                 line_id = int(post.get('sale_order_line_id') or 0)
                 line = request.env['sale.order.line'].browse(line_id)
                 if line.order_id.partner_id.commercial_partner_id != partner.commercial_partner_id:
-                    raise AccessError(_('دسترسی به این سفارش ندارید.'))
+                    raise AccessError(_('You do not have access to this order.'))
                 if not line.product_id.is_care_service:
-                    raise UserError(_('محصول انتخاب‌شده یک خدمت مراقبت نیست.'))
+                    raise UserError(_('The selected product is not a care service.'))
                 vals.update({
                     'sale_order_line_id': line.id,
                     'product_id': line.product_id.id,
@@ -355,7 +355,7 @@ class CustomerPortal(CustomerPortal):
         entitlement = request.env['care.package.entitlement'].browse(entitlement_id)
         entitlement.check_access('read')
         if entitlement.partner_id.commercial_partner_id != partner.commercial_partner_id:
-            raise AccessError(_('دسترسی ندارید.'))
+            raise AccessError(_('Access denied.'))
         products = entitlement.get_available_service_products()
         return [{
             'id': p.id,

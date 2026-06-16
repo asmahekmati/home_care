@@ -1,17 +1,17 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class CareTeam(models.Model):
     _name = 'care.team'
-    _description = 'تیم مراقبت در منزل'
+    _description = 'Home Care Team'
     _order = 'name'
 
-    name = fields.Char(string='نام تیم', required=True, translate=True)
+    name = fields.Char(string='Team Name', required=True, translate=True)
     active = fields.Boolean(default=True)
-    color = fields.Integer(string='رنگ')
+    color = fields.Integer(string='Color')
     leader_id = fields.Many2one(
         'res.users',
-        string='سرپرست تیم',
+        string='Team Leader',
         ondelete='set null',
     )
     member_ids = fields.Many2many(
@@ -19,11 +19,11 @@ class CareTeam(models.Model):
         'care_team_user_rel',
         'team_id',
         'user_id',
-        string='اعضا',
+        string='Members',
     )
-    description = fields.Text(string='توضیحات')
+    description = fields.Text(string='Description')
     request_count = fields.Integer(
-        string='تعداد درخواست',
+        string='Request Count',
         compute='_compute_request_count',
     )
 
@@ -68,7 +68,7 @@ class CareTeam(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'درخواست‌های تیم',
+            'name': _('Team Requests'),
             'res_model': 'care.service.request',
             'view_mode': 'list,form',
             'domain': [('team_id', '=', self.id)],

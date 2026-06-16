@@ -26,7 +26,7 @@
                     </group>
                     <field name="description"/>
                     <notebook>
-                        <page string="مراحل">
+                        <page string="Steps">
                             <field name="step_ids">
                                 <list>
                                     <field name="sequence" widget="handle"/>
@@ -40,6 +40,7 @@
                                     <field name="team_acceptance_mode"/>
                                     <field name="is_provider_accepted_status"/>
                                     <field name="is_cancel_step"/>
+                                    <field name="allow_create_invoice" string="Create Invoice"/>
                                 </list>
                                 <form>
                                     <group>
@@ -51,11 +52,11 @@
                                             <field name="allow_portal_advance"/>
                                             <field name="consumes_quota"/>
                                             <field name="is_cancel_step"/>
-                                            <field name="allow_create_invoice"/>
-                                    <field name="allow_provider_complete"/>
-                                    <field name="allow_provider_cancel"/>
-                                    <field name="allow_customer_cancel"/>
-                                    <field name="invoice_product_id" invisible="not allow_create_invoice"/>
+                                            <field name="allow_create_invoice" string="Create Invoice"/>
+                                            <field name="allow_provider_complete"/>
+                                            <field name="allow_provider_cancel"/>
+                                            <field name="allow_customer_cancel"/>
+                                            <field name="invoice_product_id" invisible="not allow_create_invoice"/>
                                         </group>
                                         <group>
                                             <field name="auto_team_id"/>
@@ -98,7 +99,7 @@
     </record>
 
     <record id="care_workflow_template_action" model="ir.actions.act_window">
-        <field name="name">فرآیندها</field>
+        <field name="name">Workflows</field>
         <field name="res_model">care.workflow.template</field>
         <field name="view_mode">list,form</field>
     </record>

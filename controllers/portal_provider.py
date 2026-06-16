@@ -16,14 +16,58 @@ class CareProviderPortal(CustomerPortal):
 
     def _check_provider_request(self, care_request):
         if not care_request.exists():
-            raise AccessError(_('درخواست یافت نشد.'))
+            raise AccessError(_('Request not found.'))
         care_request.check_access('read')
         if not care_request.provider_can_access():
-            raise AccessError(_('این درخواست به شما ارجاع نشده است.'))
+            raise AccessError(_('This request has not been assigned to you.'))
 
     def _get_provider_invoices(self, care_request):
         care_request.check_access('read')
         return care_request.sudo().invoice_ids
+
+    def _get_provider_invoice_form_values(self):
+        Product = request.env['product.product'].sudo()
+        Tax = request.env['account.tax'].sudo()
+        return {
+            'sale_products': Product.search([('sale_ok', '=', True)], order='name'),
+            'sale_taxes': Tax.search([
+                ('type_tax_use', '=', 'sale'),
+                ('active', '=', True),
+            ], order='name'),
+        }
+
+    def _parse_provider_invoice_lines(self, post):
+        lines_data = []
+        line_indexes = set()
+        for key in post:
+            if not key.startswith('line_'):
+                continue
+            remainder = key[5:]
+            if remainder.startswith('_'):
+                line_indexes.add(0)
+                continue
+            if '_' in remainder:
+                index_part = remainder.split('_', 1)[0]
+                if index_part.isdigit():
+                    line_indexes.add(int(index_part))
+        for index in sorted(line_indexes):
+            prefix = 'line_%s_' % index
+            if index == 0 and prefix + 'product_id' not in post:
+                prefix = 'line__'
+            product_id = post.get(prefix + 'product_id')
+            if not product_id or not str(product_id).strip().isdigit():
+                continue
+            tax_raw = request.httprequest.form.getlist(prefix + 'tax_ids')
+            lines_data.append({
+                'display_type': 'product',
+                'product_id': int(product_id),
+                'quantity': post.get(prefix + 'quantity') or 1,
+                'price_unit': post.get(prefix + 'price_unit'),
+                'discount': post.get(prefix + 'discount') or 0,
+                'tax_ids': [int(t) for t in tax_raw if t and str(t).isdigit()],
+                'description': post.get(prefix + 'description') or '',
+            })
+        return lines_data
 
     @http.route(['/my/care/provider/requests', '/my/care/provider/requests/page/<int:page>'],
                 type='http', auth='user', website=True)
@@ -74,11 +118,13 @@ class CareProviderPortal(CustomerPortal):
             'error': kw.get('error'),
             'success': kw.get('success'),
         })
+        if care_request.provider_can_create_invoice():
+            values.update(self._get_provider_invoice_form_values())
         return request.render('home_care.portal_provider_request_detail', values)
 
-    @http.route(['/my/care/provider/requests/<int:request_id>/invoice/wizard/embed'],
-                type='http', auth='user', website=True)
-    def portal_provider_invoice_wizard_embed(self, request_id, **kw):
+    @http.route(['/my/care/provider/requests/<int:request_id>/invoice/create'],
+                type='http', auth='user', website=True, methods=['POST'])
+    def portal_provider_invoice_create(self, request_id, **post):
         redirect = self._ensure_care_provider()
         if redirect:
             return redirect
@@ -86,31 +132,19 @@ class CareProviderPortal(CustomerPortal):
         try:
             self._check_provider_request(care_request)
             care_request.check_access('write')
-        except AccessError:
-            return request.redirect('/my')
-        if not care_request.provider_can_create_invoice():
+            if not care_request.provider_can_create_invoice():
+                raise UserError(_('You cannot create an invoice for this request.'))
+            lines_data = self._parse_provider_invoice_lines(post)
+            if not lines_data:
+                raise UserError(_('Enter at least one invoice line.'))
+            care_request.sudo().action_create_invoice_from_lines(lines_data)
+        except (AccessError, UserError) as exc:
             return request.redirect(
-                '/my/care/provider/requests/%s?error=%s'
-                % (request_id, _('امکان ایجاد فاکتور وجود ندارد.'))
+                '/my/care/provider/requests/%s?error=%s' % (request_id, exc.args[0])
             )
-        return_url = '/my/care/provider/requests/%s/invoice/done' % request_id
-        url = care_request.get_provider_invoice_wizard_url(return_url)
-        return request.redirect(url)
-
-    @http.route(['/my/care/provider/requests/<int:request_id>/invoice/done'],
-                type='http', auth='user', website=True)
-    def portal_provider_invoice_done(self, request_id, **kw):
-        redirect = self._ensure_care_provider()
-        if redirect:
-            return redirect
-        care_request = request.env['care.service.request'].browse(request_id)
-        try:
-            self._check_provider_request(care_request)
-        except AccessError:
-            return request.redirect('/my')
-        return request.render('home_care.portal_provider_invoice_done', {
-            'redirect_url': '/my/care/provider/requests/%s?success=invoice' % request_id,
-        })
+        return request.redirect(
+            '/my/care/provider/requests/%s?success=invoice' % request_id
+        )
 
     @http.route(['/my/care/provider/requests/<int:request_id>/accept'],
                 type='http', auth='user', website=True, methods=['POST'])

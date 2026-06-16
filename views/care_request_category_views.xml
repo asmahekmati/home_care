@@ -40,7 +40,7 @@
     </record>
 
     <record id="care_request_category_action" model="ir.actions.act_window">
-        <field name="name">دسته‌بندی درخواست</field>
+        <field name="name">Request Categories</field>
         <field name="res_model">care.request.category</field>
         <field name="view_mode">list,form</field>
     </record>

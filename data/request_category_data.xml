@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
     <record id="care_category_nursing" model="care.request.category">
-        <field name="name">خدمات پرستاری</field>
+        <field name="name">Nursing Services</field>
         <field name="code">nursing</field>
         <field name="sequence">10</field>
     </record>
     <record id="care_category_injection" model="care.request.category">
-        <field name="name">تزریقات</field>
+        <field name="name">Injections</field>
         <field name="code">injection</field>
         <field name="sequence">20</field>
     </record>
     <record id="care_category_equipment" model="care.request.category">
-        <field name="name">تجهیزات</field>
+        <field name="name">Equipment</field>
         <field name="code">equipment</field>
         <field name="sequence">30</field>
     </record>
     <record id="care_category_lab" model="care.request.category">
-        <field name="name">آزمایش</field>
+        <field name="name">Laboratory</field>
         <field name="code">lab</field>
         <field name="sequence">40</field>
     </record>
     <record id="care_category_visit" model="care.request.category">
-        <field name="name">ویزیت</field>
+        <field name="name">Visit</field>
         <field name="code">visit</field>
         <field name="sequence">50</field>
     </record>

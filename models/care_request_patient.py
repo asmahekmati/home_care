@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""فیلدهای اطلاعات بیمار و بیمه روی درخواست خدمت."""
+"""Patient and insurance fields on care service requests."""
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class CareServiceRequestPatient(models.Model):
@@ -9,75 +9,72 @@ class CareServiceRequestPatient(models.Model):
 
     patient_relation = fields.Selection(
         [
-            ('self', 'برای خودم'),
-            ('other', 'برای دیگری'),
+            ('self', 'For Myself'),
+            ('other', 'For Someone Else'),
         ],
-        string='درخواست برای',
+        string='Request For',
         default='self',
         required=True,
         tracking=True,
     )
-    # اطلاعات هویتی بیمار
-    patient_first_name = fields.Char(string='نام بیمار', tracking=True)
-    patient_last_name = fields.Char(string='نام خانوادگی بیمار', tracking=True)
-    patient_national_id = fields.Char(string='کد ملی', tracking=True)
+    patient_first_name = fields.Char(string='Patient First Name', tracking=True)
+    patient_last_name = fields.Char(string='Patient Last Name', tracking=True)
+    patient_national_id = fields.Char(string='National ID', tracking=True)
     patient_full_name = fields.Char(
-        string='نام کامل بیمار',
+        string='Patient Full Name',
         compute='_compute_patient_full_name',
         store=True,
         tracking=True,
     )
-    patient_case_code = fields.Char(string='کد پرونده / کد بیمار', tracking=True)
-    patient_age = fields.Integer(string='سن')
+    patient_case_code = fields.Char(string='Case / Patient Code', tracking=True)
+    patient_age = fields.Integer(string='Age')
     patient_gender = fields.Selection(
         [
-            ('male', 'مرد'),
-            ('female', 'زن'),
-            ('other', 'سایر'),
+            ('male', 'Male'),
+            ('female', 'Female'),
+            ('other', 'Other'),
         ],
-        string='جنسیت',
+        string='Gender',
         tracking=True,
     )
-    patient_phone = fields.Char(string='شماره تماس بیمار', tracking=True)
-    patient_mobile = fields.Char(string='شماره تماس همراه', tracking=True)
-    patient_address = fields.Text(string='آدرس بیمار')
+    patient_phone = fields.Char(string='Patient Phone', tracking=True)
+    patient_mobile = fields.Char(string='Patient Mobile', tracking=True)
+    patient_address = fields.Text(string='Patient Address')
 
-    # بیمه پایه
     insurance_primary_id = fields.Many2one(
         'care.insurance',
-        string='بیمه پایه',
+        string='Primary Insurance',
         domain=[('insurance_type', '=', 'primary')],
         tracking=True,
     )
     insurance_primary_name = fields.Char(
-        string='نام بیمه',
+        string='Primary Insurance Name',
         related='insurance_primary_id.name',
         store=True,
         readonly=True,
     )
-    insurance_primary_number = fields.Char(string='شماره بیمه / دفترچه', tracking=True)
-    insurance_primary_policy = fields.Char(string='شماره قرارداد / بیمه‌شده', tracking=True)
+    insurance_primary_number = fields.Char(string='Insurance / Booklet Number', tracking=True)
+    insurance_primary_policy = fields.Char(string='Contract / Insured Number', tracking=True)
 
-    # بیمه تکمیلی
     insurance_supplementary_id = fields.Many2one(
         'care.insurance',
-        string='بیمه تکمیلی',
+        string='Supplementary Insurance',
         domain=[('insurance_type', '=', 'supplementary')],
         tracking=True,
     )
     insurance_supplementary_name = fields.Char(
-        string='نام بیمه تکمیلی',
+        string='Supplementary Insurance Name',
         related='insurance_supplementary_id.name',
         store=True,
         readonly=True,
     )
-    insurance_supplementary_number = fields.Char(string='شماره بیمه تکمیلی', tracking=True)
-    insurance_supplementary_policy = fields.Char(string='شماره قرارداد تکمیلی', tracking=True)
+    insurance_supplementary_number = fields.Char(string='Supplementary Insurance Number', tracking=True)
+    insurance_supplementary_policy = fields.Char(string='Supplementary Contract Number', tracking=True)
 
     assignment_offer_ids = fields.One2many(
         'care.request.assignment.offer',
         'request_id',
-        string='پیشنهادهای پذیرش',
+        string='Assignment Offers',
     )
     can_current_user_accept = fields.Boolean(
         compute='_compute_can_current_user_accept',
@@ -86,13 +83,13 @@ class CareServiceRequestPatient(models.Model):
         compute='_compute_pending_assignment_count',
     )
     activity_count = fields.Integer(
-        string='تعداد فعالیت',
+        string='Activity Count',
         compute='_compute_activity_count',
     )
-    assignee_name = fields.Char(related='user_id.name', string='نام پذیرنده')
+    assignee_name = fields.Char(related='user_id.name', string='Provider Name')
     assignee_phone = fields.Char(compute='_compute_assignee_phone')
     assignee_image_url = fields.Char(compute='_compute_assignee_image_url')
-    assignee_team_name = fields.Char(related='team_id.name', string='تیم پذیرنده')
+    assignee_team_name = fields.Char(related='team_id.name', string='Provider Team')
     can_customer_reject_assignee = fields.Boolean(compute='_compute_can_customer_reject_assignee')
     can_step_create_invoice = fields.Boolean(compute='_compute_can_step_create_invoice')
     can_provider_complete_service = fields.Boolean(compute='_compute_can_provider_complete_service')
@@ -170,7 +167,7 @@ class CareServiceRequestPatient(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'فعالیت‌ها',
+            'name': _('Activities'),
             'res_model': 'mail.activity',
             'view_mode': 'list,form',
             'domain': [

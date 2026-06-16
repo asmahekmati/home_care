@@ -43,17 +43,17 @@
             <search>
                 <field name="name"/>
                 <field name="code"/>
-                <filter name="primary" string="بیمه پایه" domain="[('insurance_type', '=', 'primary')]"/>
-                <filter name="supplementary" string="بیمه تکمیلی" domain="[('insurance_type', '=', 'supplementary')]"/>
+                <filter name="primary" string="Primary Insurance" domain="[('insurance_type', '=', 'primary')]"/>
+                <filter name="supplementary" string="Supplementary Insurance" domain="[('insurance_type', '=', 'supplementary')]"/>
                 <group>
-                    <filter name="group_type" string="نوع" context="{'group_by': 'insurance_type'}"/>
+                    <filter name="group_type" string="Type" context="{'group_by': 'insurance_type'}"/>
                 </group>
             </search>
         </field>
     </record>
 
     <record id="care_insurance_action" model="ir.actions.act_window">
-        <field name="name">بیمه‌ها</field>
+        <field name="name">Insurances</field>
         <field name="res_model">care.insurance</field>
         <field name="view_mode">list,form</field>
         <field name="context">{'search_default_group_type': 1}</field>

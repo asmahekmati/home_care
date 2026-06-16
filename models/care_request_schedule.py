@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""زمان‌بندی حضور پذیرنده و کنترل همپوشانی."""
+"""Provider visit scheduling and overlap checks."""
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
@@ -9,30 +9,30 @@ class CareServiceRequestSchedule(models.Model):
     _inherit = 'care.service.request'
 
     preferred_datetime_start = fields.Datetime(
-        string='شروع بازه ترجیحی',
+        string='Preferred Window Start',
         tracking=True,
     )
     preferred_datetime_end = fields.Datetime(
-        string='پایان بازه ترجیحی',
+        string='Preferred Window End',
         tracking=True,
     )
     preferred_schedule_display = fields.Char(
-        string='بازه ترجیحی',
+        string='Preferred Window',
         compute='_compute_preferred_schedule_display',
     )
-    provider_complete_note = fields.Text(string='توضیحات تکمیل پذیرنده')
-    provider_cancel_note = fields.Text(string='توضیحات لغو پذیرنده')
+    provider_complete_note = fields.Text(string='Provider Completion Notes')
+    provider_cancel_note = fields.Text(string='Provider Cancellation Notes')
 
     visit_datetime_start = fields.Datetime(
-        string='شروع حضور',
+        string='Visit Start',
         tracking=True,
     )
     visit_datetime_end = fields.Datetime(
-        string='پایان حضور',
+        string='Visit End',
         tracking=True,
     )
     visit_schedule_display = fields.Char(
-        string='بازه حضور',
+        string='Visit Window',
         compute='_compute_visit_schedule_display',
     )
 
@@ -78,7 +78,7 @@ class CareServiceRequestSchedule(models.Model):
             if req.preferred_datetime_start and req.preferred_datetime_end:
                 if req.preferred_datetime_end <= req.preferred_datetime_start:
                     raise ValidationError(
-                        _('پایان بازه ترجیحی باید بعد از شروع آن باشد.')
+                        _('Preferred end time must be after the start time.')
                     )
 
     @api.constrains('visit_datetime_start', 'visit_datetime_end')
@@ -87,7 +87,7 @@ class CareServiceRequestSchedule(models.Model):
             if req.visit_datetime_start and req.visit_datetime_end:
                 if req.visit_datetime_end <= req.visit_datetime_start:
                     raise ValidationError(
-                        _('زمان پایان حضور باید بعد از زمان شروع باشد.')
+                        _('Visit end time must be after the start time.')
                     )
 
     @api.model
@@ -97,12 +97,12 @@ class CareServiceRequestSchedule(models.Model):
         ]).ids
 
     def _check_visit_overlap(self, user, visit_start, visit_end):
-        """بررسی همپوشانی با سایر درخواست‌های پذیرفته‌شده توسط همین پذیرنده."""
+        """Check overlap with other accepted requests for the same provider."""
         self.ensure_one()
         if not visit_start or not visit_end:
-            raise UserError(_('تاریخ و بازه زمانی حضور الزامی است.'))
+            raise UserError(_('Visit date and time window are required.'))
         if visit_end <= visit_start:
-            raise UserError(_('زمان پایان حضور باید بعد از زمان شروع باشد.'))
+            raise UserError(_('Visit end time must be after the start time.'))
 
         accepted_step_ids = self._get_provider_accepted_step_ids()
         domain = [
@@ -120,11 +120,11 @@ class CareServiceRequestSchedule(models.Model):
         for other in self.search(domain):
             if visit_start < other.visit_datetime_end and visit_end > other.visit_datetime_start:
                 raise UserError(_(
-                    'بازه زمانی حضور با درخواست «%s» (%s) همپوشانی دارد.'
+                    'Visit time overlaps with request "%s" (%s).'
                 ) % (other.name, other.visit_schedule_display or ''))
 
     def _check_visit_within_preferred(self, visit_start, visit_end):
-        """بازه حضور پذیرنده باید داخل بازه درخواستی مشتری باشد."""
+        """Provider visit window must fall within the customer's preferred window."""
         self.ensure_one()
         pref_start = self.preferred_datetime_start or self.preferred_datetime
         pref_end = self.preferred_datetime_end
@@ -132,7 +132,7 @@ class CareServiceRequestSchedule(models.Model):
             return
         if visit_start < pref_start or visit_end > pref_end:
             raise UserError(_(
-                'بازه زمانی حضور باید داخل بازه درخواستی مشتری (%s) باشد.'
+                'Visit time must fall within the customer preferred window (%s).'
             ) % (self.preferred_schedule_display or ''))
 
     @api.model
@@ -148,7 +148,7 @@ class CareServiceRequestSchedule(models.Model):
             domain.append(('current_step_id', 'in', accepted_step_ids))
         return {
             'type': 'ir.actions.act_window',
-            'name': _('کارهای من'),
+            'name': _('My Tasks'),
             'res_model': 'care.service.request',
             'view_mode': 'list,form,calendar',
             'domain': domain,

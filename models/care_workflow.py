@@ -1,24 +1,24 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 
 class CareWorkflowTemplate(models.Model):
     _name = 'care.workflow.template'
-    _description = 'قالب فرآیند مراقبت'
+    _description = 'Care Workflow Template'
     _order = 'name'
 
-    name = fields.Char(string='نام فرآیند', required=True, translate=True)
+    name = fields.Char(string='Workflow Name', required=True, translate=True)
     active = fields.Boolean(default=True)
     category_id = fields.Many2one(
         'care.request.category',
-        string='دسته‌بندی',
+        string='Category',
         ondelete='restrict',
     )
-    description = fields.Text(string='توضیحات')
+    description = fields.Text(string='Description')
     step_ids = fields.One2many(
         'care.workflow.step',
         'workflow_id',
-        string='مراحل',
+        string='Steps',
         copy=True,
     )
     step_count = fields.Integer(compute='_compute_step_count')
@@ -37,119 +37,122 @@ class CareWorkflowTemplate(models.Model):
 
 class CareWorkflowStep(models.Model):
     _name = 'care.workflow.step'
-    _description = 'مرحله فرآیند مراقبت'
+    _description = 'Care Workflow Step'
     _order = 'workflow_id, sequence, id'
 
-    name = fields.Char(string='نام مرحله', required=True, translate=True)
+    name = fields.Char(string='Step Name', required=True, translate=True)
     workflow_id = fields.Many2one(
         'care.workflow.template',
-        string='فرآیند',
+        string='Workflow',
         required=True,
         ondelete='cascade',
     )
     sequence = fields.Integer(default=10)
-    description = fields.Text(string='توضیحات داخلی')
+    description = fields.Text(string='Internal Notes')
     portal_instruction = fields.Html(
-        string='راهنمای مشتری',
+        string='Customer Instructions',
         translate=True,
-        help='متن نمایش‌داده‌شده به مشتری در پورتال برای این مرحله.',
+        help='Text shown to the customer in the portal for this step.',
     )
     requires_attachment = fields.Boolean(
-        string='نیاز به پیوست',
-        help='قبل از رفتن به مرحله بعد، حداقل یک سند باید آپلود شود.',
+        string='Requires Attachment',
+        help='At least one document must be uploaded before moving to the next step.',
     )
     allow_portal_upload = fields.Boolean(
-        string='آپلود از پورتال',
+        string='Portal Upload',
         default=True,
     )
     allow_portal_advance = fields.Boolean(
-        string='پیشرفت از پورتال',
-        help='مشتری می‌تواند در پورتال به مرحله بعد برود (در صورت برآورده شدن شرایط).',
+        string='Portal Advance',
+        help='The customer can move to the next step in the portal when conditions are met.',
     )
     consumes_quota = fields.Boolean(
-        string='مصرف سهمیه',
-        help='با ورود به این مرحله، یک واحد از سهمیه خدمت کسر می‌شود.',
+        string='Consumes Quota',
+        help='Entering this step consumes one unit from the service entitlement.',
     )
     is_cancel_step = fields.Boolean(
-        string='مرحله لغو',
-        help='با زدن دکمه لغو، درخواست به این مرحله منتقل می‌شود.',
+        string='Cancel Step',
+        help='Clicking cancel moves the request to this step.',
     )
-    allow_create_invoice = fields.Boolean(string='امکان ایجاد فاکتور')
+    allow_create_invoice = fields.Boolean(
+        string='Allow Create Invoice',
+        help='Shows the create invoice action in the provider portal and backend on this workflow step.',
+    )
     allow_provider_complete = fields.Boolean(
-        string='دکمه انجام خدمت (پذیرنده)',
-        help='پذیرنده می‌تواند از پورتال خدمت را انجام‌شده اعلام کند (رفتن به مرحله بعد).',
+        string='Provider Complete Button',
+        help='The provider can mark the service as completed from the portal (move to next step).',
     )
     allow_provider_cancel = fields.Boolean(
-        string='دکمه لغو فرآیند (پذیرنده)',
-        help='پذیرنده می‌تواند از پورتال درخواست را با توضیحات لغو کند.',
+        string='Provider Cancel Process Button',
+        help='The provider can cancel the request from the portal with a cancellation note.',
     )
     allow_customer_cancel = fields.Boolean(
-        string='دکمه لغو درخواست (مشتری)',
-        help='مشتری می‌تواند از پورتال کل درخواست را در این مرحله لغو کند.',
+        string='Customer Cancel Request Button',
+        help='The customer can cancel the entire request from the portal at this step.',
     )
     invoice_product_id = fields.Many2one(
         'product.product',
-        string='محصول پیش‌فرض فاکتور',
+        string='Default Invoice Product',
         ondelete='set null',
     )
-    send_sms = fields.Boolean(string='ارسال SMS به مشتری', default=True)
+    send_sms = fields.Boolean(string='Send SMS to Customer', default=True)
     sms_body = fields.Text(
-        string='متن SMS مشتری',
+        string='Customer SMS Text',
         default=(
-            'مشتری گرامی {partner_name}،\n'
-            'درخواست {request_name} در مرحله «{step_name}» قرار دارد.\n'
-            'خدمت: {service_name}'
+            'Dear {partner_name},\n'
+            'Request {request_name} is at step "{step_name}".\n'
+            'Service: {service_name}'
         ),
-        help='متغیرها: {partner_name}, {request_name}, {step_name}, {service_name}, {package_name}, {visit_schedule}',
+        help='Variables: {partner_name}, {request_name}, {step_name}, {service_name}, {package_name}, {visit_schedule}',
     )
     send_team_sms = fields.Boolean(
-        string='ارسال SMS به تیم',
-        help='ارسال پیامک به اعضای تیم (مثلاً مرحله ارجاع).',
+        string='Send SMS to Team',
+        help='Send SMS to team members (e.g. assignment step).',
     )
     team_sms_body = fields.Text(
-        string='متن SMS تیم',
+        string='Team SMS Text',
         default=(
-            'همکار گرامی {user_name}،\n'
-            'درخواست {request_name} — بیمار: {patient_name}\n'
-            'مرحله: {step_name} — تیم: {team_name}\n'
-            'لطفاً در سیستم درخواست را بپذیرید.'
+            'Dear {user_name},\n'
+            'Request {request_name} — Patient: {patient_name}\n'
+            'Step: {step_name} — Team: {team_name}\n'
+            'Please accept the request in the system.'
         ),
-        help='متغیرها: {user_name}, {request_name}, {patient_name}, {step_name}, {team_name}, {service_name}',
+        help='Variables: {user_name}, {request_name}, {patient_name}, {step_name}, {team_name}, {service_name}',
     )
     team_acceptance_mode = fields.Boolean(
-        string='پذیرش توسط تیم (اولین نفر)',
-        help='مشابه اسنپ: SMS به اعضای تیم؛ اولین نفری که «پذیرش» بزند مسئول می‌شود.',
+        string='Team Acceptance (First Responder)',
+        help='Like ride-hailing: SMS team members; the first to accept becomes the assignee.',
     )
     is_provider_accepted_status = fields.Boolean(
-        string='وضعیت پذیرفته‌شده توسط پذیرنده',
-        help='درخواست‌های در این مرحله برای کنترل همپوشانی زمان حضور پذیرنده در نظر گرفته می‌شوند.',
+        string='Provider Accepted Status',
+        help='Requests at this step are considered for provider visit schedule overlap checks.',
     )
     requires_visit_schedule = fields.Boolean(
-        string='زمان‌بندی حضور هنگام پذیرش',
-        help='پذیرنده هنگام پذیرش باید تاریخ و بازه زمانی حضور را وارد کند.',
+        string='Visit Schedule on Acceptance',
+        help='The provider must enter visit date and time window when accepting.',
     )
     send_assignee_customer_sms = fields.Boolean(
-        string='SMS پذیرنده به مشتری',
+        string='Assignee SMS to Customer',
         default=True,
     )
     assignee_customer_sms_body = fields.Text(
-        string='متن SMS پذیرنده',
+        string='Assignee SMS Text',
         default=(
-            'مشتری گرامی {partner_name}،\n'
-            'درخواست {request_name} توسط {assignee_name} پذیرفته شد.\n'
-            'زمان حضور: {visit_schedule}\n'
-            'تماس: {assignee_phone}\n'
-            'مشخصات: {assignee_link}'
+            'Dear {partner_name},\n'
+            'Request {request_name} was accepted by {assignee_name}.\n'
+            'Visit time: {visit_schedule}\n'
+            'Contact: {assignee_phone}\n'
+            'Profile: {assignee_link}'
         ),
     )
     auto_team_id = fields.Many2one(
         'care.team',
-        string='واگذاری خودکار به تیم',
+        string='Auto-assign Team',
         ondelete='set null',
     )
     auto_user_id = fields.Many2one(
         'res.users',
-        string='واگذاری خودکار به شخص',
+        string='Auto-assign User',
         ondelete='set null',
         domain="[('id', 'in', auto_team_member_ids)]",
     )
@@ -160,7 +163,7 @@ class CareWorkflowStep(models.Model):
     action_ids = fields.One2many(
         'care.workflow.action',
         'step_id',
-        string='اکشن‌های اضافی',
+        string='Additional Actions',
     )
 
     @api.depends('auto_team_id.member_ids', 'auto_team_id.leader_id')
@@ -179,7 +182,7 @@ class CareWorkflowStep(models.Model):
             )
             if others:
                 raise ValidationError(
-                    'در هر فرآیند فقط یک مرحله می‌تواند «مرحله لغو» باشد.'
+                    _('Only one step per workflow can be marked as the cancel step.')
                 )
 
     @api.constrains('is_provider_accepted_status', 'workflow_id')
@@ -192,7 +195,7 @@ class CareWorkflowStep(models.Model):
             )
             if others:
                 raise ValidationError(
-                    'در هر فرآیند فقط یک مرحله می‌تواند «وضعیت پذیرفته‌شده توسط پذیرنده» باشد.'
+                    _('Only one step per workflow can be marked as provider accepted status.')
                 )
 
     @api.constrains('consumes_quota', 'workflow_id')
@@ -205,47 +208,47 @@ class CareWorkflowStep(models.Model):
             )
             if others:
                 raise ValidationError(
-                    'در هر فرآیند فقط یک مرحله می‌تواند «مصرف سهمیه» باشد.'
+                    _('Only one step per workflow can consume quota.')
                 )
 
 
 class CareWorkflowAction(models.Model):
     _name = 'care.workflow.action'
-    _description = 'اکشن مرحله فرآیند'
+    _description = 'Workflow Step Action'
     _order = 'step_id, sequence, id'
 
-    name = fields.Char(string='نام', required=True)
+    name = fields.Char(string='Name', required=True)
     step_id = fields.Many2one(
         'care.workflow.step',
-        string='مرحله',
+        string='Step',
         required=True,
         ondelete='cascade',
     )
     sequence = fields.Integer(default=10)
     trigger = fields.Selection(
         [
-            ('on_enter', 'ورود به مرحله'),
-            ('on_exit', 'خروج از مرحله'),
+            ('on_enter', 'On Enter'),
+            ('on_exit', 'On Exit'),
         ],
-        string='زمان اجرا',
+        string='Trigger',
         required=True,
         default='on_enter',
     )
     action_type = fields.Selection(
         [
-            ('assign_team', 'واگذاری تیم'),
-            ('assign_user', 'واگذاری شخص'),
-            ('email', 'ارسال ایمیل'),
-            ('activity', 'ایجاد Activity'),
+            ('assign_team', 'Assign Team'),
+            ('assign_user', 'Assign User'),
+            ('email', 'Send Email'),
+            ('activity', 'Create Activity'),
         ],
-        string='نوع اکشن',
+        string='Action Type',
         required=True,
     )
-    team_id = fields.Many2one('care.team', string='تیم')
-    user_id = fields.Many2one('res.users', string='کاربر')
-    email_template_id = fields.Many2one('mail.template', string='قالب ایمیل')
-    activity_summary = fields.Char(string='عنوان Activity')
-    activity_note = fields.Text(string='یادداشت Activity')
+    team_id = fields.Many2one('care.team', string='Team')
+    user_id = fields.Many2one('res.users', string='User')
+    email_template_id = fields.Many2one('mail.template', string='Email Template')
+    activity_summary = fields.Char(string='Activity Summary')
+    activity_note = fields.Text(string='Activity Note')
 
     def run_on_request(self, request):
         self.ensure_one()

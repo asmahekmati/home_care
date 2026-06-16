@@ -11,7 +11,7 @@ class CareServiceRequestInvoice(models.Model):
         'care_request_invoice_rel',
         'request_id',
         'invoice_id',
-        string='فاکتورها',
+        string='Invoices',
         copy=False,
     )
     invoice_count = fields.Integer(compute='_compute_invoice_count')
@@ -66,9 +66,9 @@ class CareServiceRequestInvoice(models.Model):
         self.ensure_one()
         step = self.current_step_id
         if not step or not step.allow_create_invoice:
-            raise UserError(_('در مرحله فعلی امکان ایجاد فاکتور فعال نیست.'))
+            raise UserError(_('Invoice creation is not enabled on the current workflow step.'))
         if self.state == 'cancelled':
-            raise UserError(_('درخواست لغوشده است.'))
+            raise UserError(_('The request has been cancelled.'))
         product = step.invoice_product_id or self.product_id
         move = self.env['account.move'].create(
             self._prepare_invoice_vals(product, step)
@@ -87,7 +87,7 @@ class CareServiceRequestInvoice(models.Model):
             'invoice_line_ids': [(0, 0, {
                 'product_id': product.id,
                 'quantity': 1.0,
-                'name': _('درخواست %s — مرحله %s') % (self.name, step.name if step else ''),
+                'name': _('Request %s — Step %s') % (self.name, step.name if step else ''),
             })],
         }
 
@@ -116,7 +116,7 @@ class CareServiceRequestInvoice(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': _('درخواست‌های مرتبط'),
+            'name': _('Related Requests'),
             'res_model': 'care.service.request',
             'view_mode': 'list,kanban,form,graph,pivot',
             'domain': [
@@ -129,7 +129,7 @@ class CareServiceRequestInvoice(models.Model):
     def action_view_sale_order(self):
         self.ensure_one()
         if not self.sale_order_id:
-            raise UserError(_('سفارش فروش مرتبطی وجود ندارد.'))
+            raise UserError(_('No related sales order found.'))
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'sale.order',
@@ -140,7 +140,7 @@ class CareServiceRequestInvoice(models.Model):
     def action_view_entitlement(self):
         self.ensure_one()
         if not self.entitlement_id:
-            raise UserError(_('سهمیه پکیجی وجود ندارد.'))
+            raise UserError(_('No package entitlement found.'))
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'care.package.entitlement',
@@ -152,7 +152,7 @@ class CareServiceRequestInvoice(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': _('مدارک'),
+            'name': _('Documents'),
             'res_model': 'care.request.document',
             'view_mode': 'list',
             'domain': [('request_id', '=', self.id)],
@@ -160,17 +160,17 @@ class CareServiceRequestInvoice(models.Model):
         }
 
     def _filter_portal_customer_invoices(self, partner=None):
-        """فاکتورهای قابل مشاهده در پورتال مشتری (همان محدودیت /my/invoices)."""
+        """Invoices visible to the customer in the portal for this request."""
         self.ensure_one()
         partner = partner or self.env.user.partner_id
         return self.invoice_ids.filtered(
             lambda inv: inv.partner_id.commercial_partner_id == partner.commercial_partner_id
-            and inv.state not in ('cancel', 'draft')
+            and inv.state != 'cancel'
             and inv.move_type in ('out_invoice', 'out_refund', 'out_receipt')
         )
 
     portal_status_display = fields.Char(
-        string='وضعیت (مرحله)',
+        string='Status (Step)',
         compute='_compute_portal_status_display',
     )
 
@@ -187,9 +187,12 @@ class CareServiceRequestInvoice(models.Model):
     def provider_can_create_invoice(self, user=None):
         self.ensure_one()
         user = user or self.env.user
+        step = self.current_step_id
         return bool(
             self.state == 'in_progress'
             and self.user_id == user
+            and step
+            and step.allow_create_invoice
         )
 
     def action_open_provider_invoice_wizard(self):
@@ -200,11 +203,18 @@ class CareServiceRequestInvoice(models.Model):
     def _prepare_provider_invoice_wizard_action(self, return_url=False):
         self.ensure_one()
         if self.state in ('done', 'cancelled'):
-            raise UserError(_('در این وضعیت امکان ایجاد فاکتور وجود ندارد.'))
-        if not self.provider_can_create_invoice() and not self.env.user.has_group(
+            raise UserError(_('Invoices cannot be created in the current request state.'))
+        step = self.current_step_id
+        if (not step or not step.allow_create_invoice) and not self.env.user.has_group(
             'home_care.group_care_manager'
         ):
-            raise UserError(_('امکان ایجاد فاکتور برای این درخواست وجود ندارد.'))
+            raise UserError(_('Invoice creation is not enabled on the current workflow step.'))
+        is_staff = (
+            self.env.user.has_group('home_care.group_care_manager')
+            or self.env.user.has_group('home_care.group_care_user')
+        )
+        if not is_staff and not self.provider_can_create_invoice():
+            raise UserError(_('You cannot create an invoice for this request.'))
         Wizard = self.env['care.request.invoice.wizard']
         defaults = Wizard.with_context(
             default_request_id=self.id,
@@ -215,7 +225,7 @@ class CareServiceRequestInvoice(models.Model):
         wizard = Wizard.create(defaults)
         action = {
             'type': 'ir.actions.act_window',
-            'name': _('فاکتور خدمت اضافه'),
+            'name': _('Create Invoice'),
             'res_model': 'care.request.invoice.wizard',
             'view_mode': 'form',
             'target': 'new',
@@ -228,7 +238,7 @@ class CareServiceRequestInvoice(models.Model):
         return action, wizard
 
     def get_provider_invoice_wizard_url(self, return_url):
-        """آدرس باز کردن ویزارد فاکتور در رابط وب (همان فرم ادمین)."""
+        """URL to open the invoice wizard in the web client (same admin form)."""
         self.ensure_one()
         _action, wizard = self._prepare_provider_invoice_wizard_action(return_url=return_url)
         action = self.env.ref('home_care.action_care_request_invoice_wizard_popup')
@@ -260,7 +270,7 @@ class CareServiceRequestInvoice(models.Model):
             line_vals = {
                 'product_id': product.id,
                 'quantity': line.get('quantity', 1.0),
-                'name': line.get('description') or product.display_name,
+                'name': product.display_name,
             }
             price_unit = line.get('price_unit')
             if price_unit is not None and price_unit is not False:
@@ -271,12 +281,15 @@ class CareServiceRequestInvoice(models.Model):
             tax_ids = line.get('tax_ids')
             if tax_ids:
                 line_vals['tax_ids'] = [(6, 0, tax_ids)]
+            description = line.get('description')
+            if description:
+                line_vals['description'] = description
             invoice_lines.append((0, 0, line_vals))
         product_lines = [l for l in lines if l.get('display_type', 'product') == 'product']
         if not product_lines:
-            raise UserError(_('حداقل یک ردیف محصول لازم است.'))
+            raise UserError(_('At least one product line is required.'))
         if not invoice_lines:
-            raise UserError(_('حداقل یک ردیف فاکتور لازم است.'))
+            raise UserError(_('Enter at least one invoice line.'))
         return {
             'move_type': 'out_invoice',
             'partner_id': self.partner_id.id,

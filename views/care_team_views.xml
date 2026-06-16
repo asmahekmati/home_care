@@ -22,7 +22,7 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_view_requests" type="object" class="oe_stat_button" icon="fa-tasks">
-                            <field name="request_count" widget="statinfo" string="درخواست"/>
+                            <field name="request_count" widget="statinfo" string="Requests"/>
                         </button>
                     </div>
                     <group>
@@ -33,7 +33,7 @@
                             <field name="active"/>
                         </group>
                     </group>
-                    <group string="اعضای تیم">
+                    <group string="Team Members">
                         <field name="member_ids" widget="many2many_tags"/>
                     </group>
                     <field name="description"/>
@@ -43,7 +43,7 @@
     </record>
 
     <record id="care_team_action" model="ir.actions.act_window">
-        <field name="name">تیم‌های مراقبت</field>
+        <field name="name">Care Teams</field>
         <field name="res_model">care.team</field>
         <field name="view_mode">list,form</field>
     </record>

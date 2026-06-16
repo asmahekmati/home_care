@@ -4,7 +4,7 @@
         <field name="name">care.change.assignee.wizard.form</field>
         <field name="model">care.change.assignee.wizard</field>
         <field name="arch" type="xml">
-            <form string="تغییر پذیرنده">
+            <form string="Change Provider">
                 <group>
                     <field name="request_id" readonly="1"/>
                     <field name="current_user_id"/>
@@ -12,8 +12,8 @@
                     <field name="new_user_id" options="{'no_create': True}"/>
                 </group>
                 <footer>
-                    <button name="action_confirm" string="تأیید تغییر" type="object" class="btn-primary"/>
-                    <button string="انصراف" special="cancel"/>
+                    <button name="action_confirm" string="Confirm Change" type="object" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
                 </footer>
             </form>
         </field>

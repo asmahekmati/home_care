@@ -1,13 +1,14 @@
 {
     'name': 'Home Care',
-    'version': '19.0.4.9.0',
+    'version': '19.0.5.2.2',
     'category': 'Services',
-    'summary': 'سیستم مراقبت در منزل — پکیج، سهمیه، فرآیند و درخواست خدمت',
+    'summary': 'Home care system — packages, entitlements, workflows, and service requests',
     'description': """
-        مدیریت پکیج‌های مراقبت در منزل، سهمیه خدمات، فرآیندهای قابل تنظیم
-        و ثبت درخواست خدمت از پورتال مشتری.
+        Manage home care packages, service entitlements, configurable workflows,
+        and service request submission from the customer portal.
     """,
-    'author': 'Custom',
+    'author': 'm.hekmati',
+    'images': ['static/description/icon.png'],
     'depends': [
         'account',
         'product',
@@ -34,6 +35,7 @@
         'views/product_template_views.xml',
         'views/care_entitlement_views.xml',
         'views/care_service_request_views.xml',
+        'views/account_move_views.xml',
         'wizard/care_invoice_wizard_views.xml',
         'wizard/care_change_assignee_wizard_views.xml',
         'wizard/care_accept_assignment_wizard_views.xml',
@@ -46,6 +48,7 @@
         'web.assets_frontend': [
             'home_care/static/src/scss/home_care_portal.scss',
             'home_care/static/src/js/care_portal.js',
+            'home_care/static/src/js/care_portal_invoice.js',
             'home_care/static/src/js/care_portal_wizard_modal.js',
             'home_care/static/src/js/portal_home_counters.js',
         ],

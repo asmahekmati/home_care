@@ -1,25 +1,42 @@
 .o_home_care_portal {
-    --hc-primary: #2563eb;
-    --hc-primary-dark: #1d4ed8;
-    --hc-success: #059669;
-    --hc-warning: #d97706;
-    --hc-danger: #dc2626;
-    --hc-bg: #f0f4ff;
-    --hc-card: #ffffff;
-    --hc-border: #e2e8f0;
-    --hc-text: #1e293b;
-    --hc-muted: #64748b;
+    --hc-primary: var(--primary, var(--o-color-1, #714b67));
+    --hc-primary-dark: color-mix(in srgb, var(--hc-primary) 85%, #000);
+    --hc-success: var(--success, var(--o-color-2, #017e84));
+    --hc-danger: var(--danger, #dc3545);
+    --hc-secondary: var(--secondary, #6c757d);
+    --hc-bg: var(--body-bg, #f8f9fa);
+    --hc-card: var(--card-bg, #fff);
+    --hc-border: var(--border-color, rgba(0, 0, 0, 0.125));
+    --hc-text: var(--body-color, #212529);
+    --hc-muted: var(--secondary, #6c757d);
+    --hc-radius: var(--border-radius, 0.375rem);
+    --hc-radius-lg: var(--border-radius-lg, 0.5rem);
+    --hc-btn-padding-y: 0.5rem;
+    --hc-btn-padding-x: 1.25rem;
+    --hc-btn-font-size: 0.9375rem;
+    --hc-btn-line-height: 1.5;
 
     color: var(--hc-text);
     padding-bottom: 2rem;
 
+    .hc-nav-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
     .hc-page-header {
-        background: linear-gradient(135deg, var(--hc-primary) 0%, #3b82f6 100%);
+        background: linear-gradient(
+            135deg,
+            var(--hc-primary) 0%,
+            color-mix(in srgb, var(--hc-primary) 70%, #fff) 100%
+        );
         color: #fff;
-        border-radius: 12px;
+        border-radius: var(--hc-radius-lg);
         padding: 1.25rem 1.5rem;
         margin-bottom: 1.5rem;
-        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+        box-shadow: 0 4px 14px color-mix(in srgb, var(--hc-primary) 35%, transparent);
     }
 
     .hc-page-header h2 {
@@ -34,15 +51,100 @@
         gap: 0.5rem;
     }
 
+    .hc-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+        padding: var(--hc-btn-padding-y) var(--hc-btn-padding-x);
+        font-size: var(--hc-btn-font-size);
+        font-weight: 500;
+        line-height: var(--hc-btn-line-height);
+        border-radius: var(--hc-radius);
+        border: 1px solid transparent;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.15s ease, border-color 0.15s ease,
+            color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+        white-space: nowrap;
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+        &:disabled,
+        &.disabled {
+            opacity: 0.65;
+            pointer-events: none;
+        }
+    }
+
+    .hc-btn-sm {
+        --hc-btn-padding-y: 0.35rem;
+        --hc-btn-padding-x: 0.85rem;
+        --hc-btn-font-size: 0.8125rem;
+    }
+
+    .hc-btn-primary {
+        background: var(--hc-primary);
+        border-color: var(--hc-primary);
+        color: #fff;
+
+        &:hover,
+        &:focus {
+            background: var(--hc-primary-dark);
+            border-color: var(--hc-primary-dark);
+            color: #fff;
+            box-shadow: 0 2px 8px color-mix(in srgb, var(--hc-primary) 35%, transparent);
+        }
+    }
+
+    .hc-btn-success {
+        background: var(--hc-success);
+        border-color: var(--hc-success);
+        color: #fff;
+
+        &:hover,
+        &:focus {
+            background: color-mix(in srgb, var(--hc-success) 85%, #000);
+            border-color: color-mix(in srgb, var(--hc-success) 85%, #000);
+            color: #fff;
+        }
+    }
+
+    .hc-btn-danger {
+        background: var(--hc-danger);
+        border-color: var(--hc-danger);
+        color: #fff;
+
+        &:hover,
+        &:focus {
+            background: color-mix(in srgb, var(--hc-danger) 85%, #000);
+            border-color: color-mix(in srgb, var(--hc-danger) 85%, #000);
+            color: #fff;
+        }
+    }
+
+    .hc-btn-secondary {
+        background: #fff;
+        border-color: var(--hc-border);
+        color: var(--hc-text);
+
+        &:hover,
+        &:focus {
+            background: var(--hc-bg);
+            border-color: color-mix(in srgb, var(--hc-primary) 35%, var(--hc-border));
+            color: var(--hc-primary-dark);
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+        }
+    }
+
     .hc-btn-header {
         background: #fff;
         color: var(--hc-primary-dark);
         border: 1px solid rgba(255, 255, 255, 0.5);
-        border-radius: 8px;
-        padding: 0.45rem 1rem;
-        font-weight: 500;
-        text-decoration: none;
-        line-height: 1.5;
         box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
 
         &:hover,
@@ -53,37 +155,22 @@
         }
     }
 
-    #careInvoiceModal {
-        .modal-header {
-            background: #f8fafc;
-            border-bottom: 1px solid var(--hc-border);
-        }
-
-        .modal-title {
-            color: var(--hc-primary-dark);
-            font-weight: 600;
-        }
-
-        .hc-invoice-line {
-            background: #f8fafc;
-            border: 1px dashed var(--hc-border);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 0.75rem;
-        }
-    }
-
     .hc-card {
         background: var(--hc-card);
         border: 1px solid var(--hc-border);
-        border-radius: 12px;
+        border-radius: var(--hc-radius-lg);
         margin-bottom: 1rem;
         overflow: hidden;
         box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+        &:hover {
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+        }
     }
 
     .hc-card-header {
-        background: #f8fafc;
+        background: color-mix(in srgb, var(--hc-bg) 80%, #fff);
         border-bottom: 1px solid var(--hc-border);
         padding: 0.75rem 1.25rem;
         font-weight: 600;
@@ -94,51 +181,16 @@
         padding: 1.25rem;
     }
 
-    .hc-btn-primary {
-        background: var(--hc-primary);
-        border-color: var(--hc-primary);
-        color: #fff;
-        border-radius: 8px;
-        padding: 0.5rem 1.25rem;
-        font-weight: 500;
-    }
-
-    .hc-btn-primary:hover {
-        background: var(--hc-primary-dark);
-        border-color: var(--hc-primary-dark);
-        color: #fff;
-    }
-
-    .hc-btn-success {
-        background: var(--hc-success);
-        border-color: var(--hc-success);
-        color: #fff;
-        border-radius: 8px;
-    }
-
-    .hc-btn-warning {
-        background: var(--hc-warning);
-        border-color: var(--hc-warning);
-        color: #fff;
-        border-radius: 8px;
-    }
-
-    .hc-btn-danger-outline {
-        border: 1px solid var(--hc-danger);
-        color: var(--hc-danger);
-        background: #fff;
-        border-radius: 8px;
-    }
-
     .hc-table {
         background: var(--hc-card);
-        border-radius: 12px;
+        border-radius: var(--hc-radius-lg);
         overflow: hidden;
         border: 1px solid var(--hc-border);
+        box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
     }
 
     .hc-table thead {
-        background: #f1f5f9;
+        background: color-mix(in srgb, var(--hc-bg) 70%, #fff);
     }
 
     .hc-table th {
@@ -146,6 +198,14 @@
         color: var(--hc-muted);
         font-size: 0.85rem;
         border-bottom: 1px solid var(--hc-border);
+    }
+
+    .hc-table tbody tr {
+        transition: background-color 0.15s ease;
+    }
+
+    .hc-table tbody tr:hover {
+        background-color: color-mix(in srgb, var(--hc-primary) 6%, #fff);
     }
 
     .hc-assignee-profile {
@@ -159,15 +219,23 @@
         border-radius: 50%;
         object-fit: cover;
         border: 4px solid var(--hc-primary);
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        box-shadow: 0 4px 12px color-mix(in srgb, var(--hc-primary) 30%, transparent);
         margin-bottom: 1rem;
+    }
+
+    .hc-assignee-avatar-sm {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--hc-primary);
     }
 
     .hc-assignee-avatar-placeholder {
         width: 120px;
         height: 120px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+        background: color-mix(in srgb, var(--hc-primary) 12%, #fff);
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -187,7 +255,7 @@
         display: flex;
         justify-content: space-between;
         padding: 0.5rem 0;
-        border-bottom: 1px solid #f1f5f9;
+        border-bottom: 1px solid color-mix(in srgb, var(--hc-border) 60%, #fff);
     }
 
     .hc-info-row:last-child {
@@ -213,9 +281,9 @@
     }
 
     .hc-invoice-line {
-        background: #f8fafc;
+        background: color-mix(in srgb, var(--hc-bg) 80%, #fff);
         border: 1px dashed var(--hc-border);
-        border-radius: 8px;
+        border-radius: var(--hc-radius);
         padding: 1rem;
         margin-bottom: 0.75rem;
     }
@@ -225,5 +293,94 @@
         flex-wrap: wrap;
         gap: 0.5rem;
         margin-bottom: 1rem;
+    }
+
+    #careInvoiceModal,
+    #careInvoiceWizardModal {
+        .modal-header {
+            background: color-mix(in srgb, var(--hc-bg) 80%, #fff);
+            border-bottom: 1px solid var(--hc-border);
+        }
+
+        .modal-title {
+            color: var(--hc-primary-dark);
+            font-weight: 600;
+        }
+
+        .hc-tax-tags {
+            width: 100%;
+        }
+
+        .hc-tax-tags-input {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.35rem;
+            min-height: 2.4rem;
+            padding: 0.25rem 0.5rem;
+            border: 1px solid var(--hc-border);
+            border-radius: var(--hc-radius);
+            background: #fff;
+            cursor: text;
+        }
+
+        .hc-tax-tags-input:focus-within {
+            border-color: var(--hc-primary);
+            box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--hc-primary) 20%, transparent);
+        }
+
+        .hc-tax-tags-list {
+            display: contents;
+        }
+
+        .hc-tax-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.15rem;
+            background: #fff;
+            border: 1px solid var(--hc-border);
+            border-radius: calc(var(--hc-radius) * 0.75);
+            padding: 0.1rem 0.45rem 0.1rem 0.25rem;
+            font-size: 0.8125rem;
+            line-height: 1.4;
+            color: var(--hc-text);
+            white-space: nowrap;
+        }
+
+        .hc-tax-tag-remove {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1rem;
+            height: 1rem;
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: transparent;
+            color: var(--hc-muted);
+            font-size: 1rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .hc-tax-tag-remove:hover {
+            color: var(--hc-text);
+        }
+
+        .hc-tax-tags-picker {
+            flex: 1 1 8rem;
+            min-width: 8rem;
+            border: none;
+            background: transparent;
+            padding: 0.15rem 0;
+            font-size: 0.875rem;
+            color: var(--hc-muted);
+            box-shadow: none;
+            outline: none;
+        }
+
+        .hc-tax-tags-picker:focus {
+            box-shadow: none;
+        }
     }
 }

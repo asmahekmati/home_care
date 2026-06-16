@@ -7,12 +7,12 @@ class AccountMove(models.Model):
 
     care_service_request_id = fields.Many2one(
         'care.service.request',
-        string='درخواست مراقبت',
+        string='Care Request',
         ondelete='set null',
         index=True,
     )
     care_workflow_step_id = fields.Many2one(
         'care.workflow.step',
-        string='مرحله فرآیند',
+        string='Workflow Step',
         ondelete='set null',
     )

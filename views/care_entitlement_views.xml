@@ -44,7 +44,7 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="سهمیه خدمات">
+                        <page string="Service Entitlements">
                             <field name="line_ids">
                                 <list editable="bottom">
                                     <field name="included_service_id"/>
@@ -54,7 +54,7 @@
                                 </list>
                             </field>
                         </page>
-                        <page string="درخواست‌ها">
+                        <page string="Requests">
                             <field name="request_ids">
                                 <list>
                                     <field name="name"/>
@@ -72,7 +72,7 @@
     </record>
 
     <record id="care_entitlement_action" model="ir.actions.act_window">
-        <field name="name">سهمیه پکیج‌ها</field>
+        <field name="name">Package Entitlements</field>
         <field name="res_model">care.package.entitlement</field>
         <field name="view_mode">list,form</field>
     </record>

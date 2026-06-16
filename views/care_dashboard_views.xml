@@ -4,7 +4,7 @@
         <field name="name">care.service.request.graph</field>
         <field name="model">care.service.request</field>
         <field name="arch" type="xml">
-            <graph string="درخواست‌ها" type="bar" stacked="True">
+            <graph string="Requests" type="bar" stacked="True">
                 <field name="state"/>
                 <field name="category_id"/>
             </graph>
@@ -15,7 +15,7 @@
         <field name="name">care.service.request.pivot</field>
         <field name="model">care.service.request</field>
         <field name="arch" type="xml">
-            <pivot string="تحلیل درخواست‌ها">
+            <pivot string="Request Analysis">
                 <field name="category_id" type="row"/>
                 <field name="state" type="col"/>
                 <field name="team_id" type="row"/>
@@ -24,13 +24,13 @@
     </record>
 
     <record id="care_service_request_action_report" model="ir.actions.act_window">
-        <field name="name">گزارش درخواست‌ها</field>
+        <field name="name">Request Reports</field>
         <field name="res_model">care.service.request</field>
         <field name="view_mode">graph,pivot,list,kanban</field>
     </record>
 
     <menuitem id="menu_care_reports"
-              name="گزارش‌ها"
+              name="Reports"
               parent="menu_home_care_root"
               action="care_service_request_action_report"
               sequence="15"/>

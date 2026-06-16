@@ -4,12 +4,12 @@ from odoo.exceptions import UserError, ValidationError
 
 class CareServiceRequest(models.Model):
     _name = 'care.service.request'
-    _description = 'درخواست خدمت مراقبت'
+    _description = 'Care Service Request'
     _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
     _order = 'create_date desc, id desc'
 
     name = fields.Char(
-        string='شماره درخواست',
+        string='Request Number',
         required=True,
         copy=False,
         readonly=True,
@@ -18,7 +18,7 @@ class CareServiceRequest(models.Model):
     )
     partner_id = fields.Many2one(
         'res.partner',
-        string='مشتری',
+        string='Customer',
         required=True,
         ondelete='restrict',
         tracking=True,
@@ -26,17 +26,17 @@ class CareServiceRequest(models.Model):
     )
     request_type = fields.Selection(
         [
-            ('package', 'از پکیج'),
-            ('standalone', 'خرید جداگانه'),
+            ('package', 'From Package'),
+            ('standalone', 'Standalone Purchase'),
         ],
-        string='نوع درخواست',
+        string='Request Type',
         required=True,
         default='package',
         tracking=True,
     )
     entitlement_id = fields.Many2one(
         'care.package.entitlement',
-        string='سهمیه پکیج',
+        string='Package Entitlement',
         ondelete='restrict',
         tracking=True,
         index=True,
@@ -45,11 +45,11 @@ class CareServiceRequest(models.Model):
     entitlement_domain_ids = fields.Many2many(
         'care.package.entitlement',
         compute='_compute_filter_domains',
-        string='سهمیه‌های مجاز',
+        string='Allowed Entitlements',
     )
     sale_order_line_id = fields.Many2one(
         'sale.order.line',
-        string='خط سفارش',
+        string='Order Line',
         ondelete='restrict',
         tracking=True,
         index=True,
@@ -58,7 +58,7 @@ class CareServiceRequest(models.Model):
     sale_order_line_domain_ids = fields.Many2many(
         'sale.order.line',
         compute='_compute_filter_domains',
-        string='خطوط سفارش مجاز',
+        string='Allowed Order Lines',
     )
     sale_order_id = fields.Many2one(
         'sale.order',
@@ -68,7 +68,7 @@ class CareServiceRequest(models.Model):
     )
     product_id = fields.Many2one(
         'product.product',
-        string='خدمت',
+        string='Service',
         required=True,
         ondelete='restrict',
         domain="[('id', 'in', product_domain_ids)]",
@@ -77,11 +77,11 @@ class CareServiceRequest(models.Model):
     product_domain_ids = fields.Many2many(
         'product.product',
         compute='_compute_filter_domains',
-        string='خدمات مجاز',
+        string='Allowed Services',
     )
     category_id = fields.Many2one(
         'care.request.category',
-        string='دسته‌بندی',
+        string='Category',
         related='product_id.request_category_id',
         store=True,
         readonly=True,
@@ -89,25 +89,25 @@ class CareServiceRequest(models.Model):
     )
     workflow_id = fields.Many2one(
         'care.workflow.template',
-        string='فرآیند',
+        string='Workflow',
         ondelete='restrict',
         tracking=True,
     )
     current_step_id = fields.Many2one(
         'care.workflow.step',
-        string='مرحله فعلی',
+        string='Current Step',
         ondelete='restrict',
         tracking=True,
     )
     team_id = fields.Many2one(
         'care.team',
-        string='تیم',
+        string='Team',
         ondelete='set null',
         tracking=True,
     )
     user_id = fields.Many2one(
         'res.users',
-        string='مسئول',
+        string='Assignee',
         ondelete='set null',
         tracking=True,
         domain="[('id', 'in', team_member_ids)]",
@@ -116,34 +116,34 @@ class CareServiceRequest(models.Model):
         'res.users',
         compute='_compute_team_member_ids',
     )
-    preferred_datetime = fields.Datetime(string='زمان ترجیحی', tracking=True)
-    description = fields.Text(string='توضیحات')
+    preferred_datetime = fields.Datetime(string='Preferred Time', tracking=True)
+    description = fields.Text(string='Description')
     state = fields.Selection(
         [
-            ('draft', 'پیش‌نویس'),
-            ('in_progress', 'در جریان'),
-            ('done', 'انجام‌شده'),
-            ('cancelled', 'لغوشده'),
+            ('draft', 'Draft'),
+            ('in_progress', 'In Progress'),
+            ('done', 'Done'),
+            ('cancelled', 'Cancelled'),
         ],
-        string='وضعیت',
+        string='Status',
         default='draft',
         required=True,
         tracking=True,
     )
     quota_consumed = fields.Boolean(
-        string='سهمیه مصرف شد',
+        string='Quota Consumed',
         default=False,
         copy=False,
     )
     document_ids = fields.One2many(
         'care.request.document',
         'request_id',
-        string='مدارک',
+        string='Documents',
     )
     step_history_ids = fields.One2many(
         'care.request.step.history',
         'request_id',
-        string='تاریخچه مراحل',
+        string='Step History',
     )
     company_id = fields.Many2one(
         'res.company',
@@ -164,7 +164,7 @@ class CareServiceRequest(models.Model):
         compute='_compute_portal_flags',
     )
     advance_step_label = fields.Char(
-        string='عنوان دکمه مرحله',
+        string='Advance Step Label',
         compute='_compute_advance_step_label',
     )
 
@@ -295,7 +295,6 @@ class CareServiceRequest(models.Model):
         Line = self.env['sale.order.line']
         Product = self.env['product.product']
         for req in self:
-            # سهمیه‌های مجاز
             if req.request_type == 'package' and req.partner_id:
                 req.entitlement_domain_ids = Entitlement.browse(
                     req._get_entitlement_ids_for_partner(req.partner_id)
@@ -303,13 +302,11 @@ class CareServiceRequest(models.Model):
             else:
                 req.entitlement_domain_ids = Entitlement
 
-            # خطوط سفارش مجاز
             if req.request_type == 'standalone' and req.partner_id:
                 req.sale_order_line_domain_ids = req._get_available_standalone_lines(req.partner_id)
             else:
                 req.sale_order_line_domain_ids = Line
 
-            # خدمات مجاز
             product_ids = req._get_product_ids_for_request(
                 req.partner_id,
                 req.request_type,
@@ -384,25 +381,25 @@ class CareServiceRequest(models.Model):
         for req in self:
             if req.request_type == 'package':
                 if req.entitlement_id and not req._partners_match(req.partner_id, req.entitlement_id.partner_id):
-                    raise ValidationError('سهمیه پکیج انتخاب‌شده متعلق به این مشتری نیست.')
+                    raise ValidationError(_('The selected package entitlement does not belong to this customer.'))
                 if req.entitlement_id and req.product_id:
                     if req.product_id not in req.entitlement_id.get_available_service_products():
-                        raise ValidationError('این خدمت در سهمیه پکیج انتخاب‌شده موجود نیست.')
+                        raise ValidationError(_('This service is not available in the selected package entitlement.'))
             elif req.request_type == 'standalone':
                 if req.sale_order_line_id and not req._partners_match(
                     req.partner_id, req.sale_order_line_id.order_id.partner_id
                 ):
-                    raise ValidationError('خط سفارش انتخاب‌شده متعلق به این مشتری نیست.')
+                    raise ValidationError(_('The selected order line does not belong to this customer.'))
                 if req.sale_order_line_id and req.product_id:
                     if req.product_id != req.sale_order_line_id.product_id:
-                        raise ValidationError('خدمت باید همان محصول خط سفارش باشد.')
+                        raise ValidationError(_('The service must match the order line product.'))
 
     @api.constrains('product_id')
     def _check_product_category(self):
         for req in self:
             if req.product_id and not req.product_id.request_category_id:
                 raise ValidationError(
-                    'خدمت «%s» دسته‌بندی درخواست ندارد. ابتدا روی محصول تنظیم کنید.'
+                    _('Service "%s" has no request category. Configure it on the product first.')
                     % req.product_id.display_name
                 )
 
@@ -415,7 +412,7 @@ class CareServiceRequest(models.Model):
                     members |= req.team_id.leader_id
                 if req.user_id not in members:
                     raise ValidationError(
-                        'مسئول انتخاب‌شده باید عضو تیم «%s» باشد.'
+                        _('The assignee must be a member of team "%s".')
                         % req.team_id.name
                     )
 
@@ -428,10 +425,10 @@ class CareServiceRequest(models.Model):
                 if not workflow and req.product_id:
                     workflow = req.product_id.request_category_id.workflow_id
                 first_step = workflow.get_first_step() if workflow else False
-                label = first_step.name if first_step else _('شروع فرآیند')
+                label = first_step.name if first_step else _('Start Workflow')
             elif req.state == 'in_progress' and req.current_step_id:
                 next_step = req._get_next_step(req.current_step_id)
-                label = next_step.name if next_step else _('تکمیل درخواست')
+                label = next_step.name if next_step else _('Complete Request')
             req.advance_step_label = label
 
     def action_proceed_workflow(self):
@@ -446,7 +443,7 @@ class CareServiceRequest(models.Model):
             req._prepare_workflow()
             first_step = req.workflow_id.get_first_step()
             if not first_step:
-                raise UserError('برای این دسته‌بندی مرحله‌ای در فرآیند تعریف نشده است.')
+                raise UserError(_('No workflow step is defined for this category.'))
             req.write({
                 'state': 'in_progress',
                 'current_step_id': first_step.id,
@@ -458,7 +455,7 @@ class CareServiceRequest(models.Model):
             req._validate_step_requirements()
             current = req.current_step_id
             if not current:
-                raise UserError('مرحله فعلی مشخص نیست.')
+                raise UserError(_('Current step is not set.'))
             req._run_step_exit_actions(current)
             if current.consumes_quota:
                 req._consume_quota()
@@ -468,7 +465,7 @@ class CareServiceRequest(models.Model):
                 req._on_step_enter(next_step)
             else:
                 req.state = 'done'
-                req.message_post(body=_('درخواست با موفقیت تکمیل شد.'))
+                req.message_post(body=_('Request completed successfully.'))
 
     def action_cancel(self):
         for req in self.filtered(lambda r: r.state not in ('done', 'cancelled')):
@@ -502,7 +499,7 @@ class CareServiceRequest(models.Model):
     def action_set_step(self, step):
         self.ensure_one()
         if step.workflow_id != self.workflow_id:
-            raise UserError('مرحله انتخاب‌شده متعلق به فرآیند این درخواست نیست.')
+            raise UserError(_('The selected step does not belong to this request workflow.'))
         old = self.current_step_id
         if old:
             self._run_step_exit_actions(old)
@@ -519,7 +516,7 @@ class CareServiceRequest(models.Model):
             self.workflow_id = self.category_id.workflow_id
         if not self.workflow_id:
             raise UserError(
-                'برای دسته‌بندی «%s» فرآیندی تعریف نشده است.'
+                _('No workflow is defined for category "%s".')
                 % self.category_id.name
             )
 
@@ -544,7 +541,7 @@ class CareServiceRequest(models.Model):
             docs = self.document_ids.filtered(lambda d: d.step_id == step)
             if not docs:
                 raise UserError(
-                    'برای رفتن به مرحله بعد، آپلود مدارک در مرحله «%s» الزامی است.'
+                    _('Document upload is required at step "%s" before proceeding.')
                     % step.name
                 )
 
@@ -554,11 +551,11 @@ class CareServiceRequest(models.Model):
             return
         if self.request_type == 'package':
             if not self.entitlement_id:
-                raise UserError('سهمیه پکیج مشخص نیست.')
+                raise UserError(_('Package entitlement is not set.'))
             self.entitlement_id.consume_service(self.product_id)
         elif self.request_type == 'standalone':
             if not self.sale_order_line_id:
-                raise UserError('خط سفارش مشخص نیست.')
+                raise UserError(_('Order line is not set.'))
             line = self.sale_order_line_id
             used = self.search_count([
                 ('sale_order_line_id', '=', line.id),
@@ -566,7 +563,7 @@ class CareServiceRequest(models.Model):
                 ('id', '!=', self.id),
             ])
             if used >= line.product_uom_qty:
-                raise UserError('سهمیه خرید این خدمت تمام شده است.')
+                raise UserError(_('The purchase quota for this service is exhausted.'))
         self.quota_consumed = True
 
     def _on_step_enter(self, step):
@@ -607,7 +604,7 @@ class CareServiceRequest(models.Model):
         number = self._get_partner_sms_number(partner)
         if not number:
             self.message_post(
-                body=_('ارسال SMS ممکن نبود: شماره تماس مشتری ثبت نشده.'),
+                body=_('Could not send SMS: customer phone number is missing.'),
                 subtype_xmlid='mail.mt_note',
             )
             return
@@ -620,12 +617,12 @@ class CareServiceRequest(models.Model):
         try:
             sms.send()
             self.message_post(
-                body=_('SMS به مشتری ارسال شد: %s') % body,
+                body=_('SMS sent to customer: %s') % body,
                 subtype_xmlid='mail.mt_note',
             )
         except Exception:
             self.message_post(
-                body=_('خطا در ارسال SMS به مشتری.'),
+                body=_('Failed to send SMS to customer.'),
                 subtype_xmlid='mail.mt_note',
             )
 
@@ -654,7 +651,7 @@ class CareServiceRequest(models.Model):
 
     @api.model
     def _get_available_standalone_lines(self, partner):
-        """خطوط سفارش تأییدشده با خدمت مراقبت که هنوز سهمیه دارند."""
+        """Confirmed order lines with care services that still have quota."""
         lines = self.env['sale.order.line'].search([
             ('order_id.partner_id', 'child_of', partner.commercial_partner_id.id),
             ('order_id.state', '=', 'sale'),
@@ -679,7 +676,7 @@ class CareServiceRequest(models.Model):
 
 class CareRequestStepHistory(models.Model):
     _name = 'care.request.step.history'
-    _description = 'تاریخچه مراحل درخواست'
+    _description = 'Care Request Step History'
     _order = 'entered_at desc, id desc'
 
     request_id = fields.Many2one(
@@ -692,10 +689,10 @@ class CareRequestStepHistory(models.Model):
         required=True,
         ondelete='restrict',
     )
-    entered_at = fields.Datetime(string='ورود', required=True)
-    exited_at = fields.Datetime(string='خروج')
+    entered_at = fields.Datetime(string='Entered', required=True)
+    exited_at = fields.Datetime(string='Exited')
     user_id = fields.Many2one(
         'res.users',
-        string='کاربر',
+        string='User',
         default=lambda self: self.env.user,
     )

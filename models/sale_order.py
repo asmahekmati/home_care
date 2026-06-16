@@ -7,12 +7,12 @@ class SaleOrder(models.Model):
     care_entitlement_ids = fields.One2many(
         'care.package.entitlement',
         'subscription_id',
-        string='سهمیه‌های مراقبت',
+        string='Care Entitlements',
     )
     care_request_ids = fields.One2many(
         'care.service.request',
         'sale_order_id',
-        string='درخواست‌های مراقبت',
+        string='Care Requests',
     )
 
     def action_confirm(self):
@@ -49,10 +49,10 @@ class SaleOrderLine(models.Model):
     care_request_ids = fields.One2many(
         'care.service.request',
         'sale_order_line_id',
-        string='درخواست‌های مراقبت',
+        string='Care Requests',
     )
     care_remaining_qty = fields.Float(
-        string='سهمیه باقیمانده',
+        string='Remaining Quota',
         compute='_compute_care_remaining_qty',
     )
 
@@ -73,7 +73,7 @@ class SaleOrderLine(models.Model):
             return [
                 (
                     line.id,
-                    '%s — %s (باقیمانده: %s)'
+                    '%s — %s (Remaining: %s)'
                     % (line.order_id.name, line.product_id.display_name, line.care_remaining_qty),
                 )
                 for line in self

@@ -5,20 +5,20 @@ from odoo.exceptions import UserError
 
 class CareAcceptAssignmentWizard(models.TransientModel):
     _name = 'care.accept.assignment.wizard'
-    _description = 'پذیرش درخواست با زمان‌بندی حضور'
+    _description = 'Accept Request with Visit Schedule'
 
     request_id = fields.Many2one(
         'care.service.request',
-        string='درخواست',
+        string='Request',
         required=True,
         ondelete='cascade',
     )
     visit_datetime_start = fields.Datetime(
-        string='شروع حضور',
+        string='Visit Start',
         required=True,
     )
     visit_datetime_end = fields.Datetime(
-        string='پایان حضور',
+        string='Visit End',
         required=True,
     )
 
@@ -26,7 +26,7 @@ class CareAcceptAssignmentWizard(models.TransientModel):
         self.ensure_one()
         req = self.request_id
         if not req.can_current_user_accept:
-            raise UserError(_('امکان پذیرش این درخواست برای شما وجود ندارد.'))
+            raise UserError(_('You cannot accept this request.'))
         req.action_accept_assignment(
             visit_start=self.visit_datetime_start,
             visit_end=self.visit_datetime_end,

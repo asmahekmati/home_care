@@ -379,9 +379,23 @@ msgstr "درخواست‌های مراقبت در منزل"
 #. module: home_care
 #: model_terms:ir.ui.view,arch_db:home_care.portal_care_requests
 #: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_requests
 #: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
-msgid "Back"
-msgstr "بازگشت"
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_tasks
+msgid "← Back"
+msgstr "← بازگشت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_requests
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_assignee
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_requests
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_tasks
+msgid "Home"
+msgstr "خانه"
 
 #. module: home_care
 #: model_terms:ir.ui.view,arch_db:home_care.portal_care_requests
@@ -468,6 +482,7 @@ msgstr "لغو کل درخواست"
 
 #. module: home_care
 #: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
 msgid "Request Details"
 msgstr "جزئیات درخواست"
 
@@ -681,6 +696,124 @@ msgstr "توضیحات"
 #: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
 msgid "Submit Request"
 msgstr "ثبت درخواست"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Insurance Information"
+msgstr "اطلاعات بیمه‌ای"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Primary Insurance"
+msgstr "بیمه پایه"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Supplementary Insurance"
+msgstr "بیمه تکمیلی"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Service"
+msgstr "خدمت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Enter first name"
+msgstr "نام را وارد کنید"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Enter last name"
+msgstr "نام خانوادگی را وارد کنید"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Enter national ID"
+msgstr "کد ملی را وارد کنید"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Enter case code (optional)"
+msgstr "کد پرونده را وارد کنید (اختیاری)"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Enter age"
+msgstr "سن را وارد کنید"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Enter phone number"
+msgstr "شماره تلفن را وارد کنید"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Enter mobile number"
+msgstr "شماره موبایل را وارد کنید"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Enter full address"
+msgstr "آدرس کامل را وارد کنید"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Additional notes (optional)"
+msgstr "توضیحات تکمیلی (اختیاری)"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Accept Request"
+msgstr "پذیرش درخواست"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Cancel"
+msgstr "انصراف"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Service:"
+msgstr "خدمت:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Status:"
+msgstr "وضعیت:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Preferred Time:"
+msgstr "بازه ترجیحی:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Customer:"
+msgstr "مشتری:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Patient:"
+msgstr "بیمار:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Address:"
+msgstr "آدرس:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Description:"
+msgstr "توضیحات:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Visit Time:"
+msgstr "زمان حضور:"
 
 #. module: home_care
 #: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_assignee

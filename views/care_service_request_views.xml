@@ -30,27 +30,27 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_open_accept_assignment_wizard" string="پذیرش درخواست" type="object"
+                    <button name="action_open_accept_assignment_wizard" string="Accept Request" type="object"
                             class="btn-primary" invisible="not can_current_user_accept"/>
                     <button name="action_proceed_workflow" type="object"
                             class="btn-primary" invisible="state not in ('draft', 'in_progress')">
                         <field name="advance_step_label" readonly="1" nolabel="1" class="d-inline"/>
                     </button>
-                    <button name="action_confirm_manual_assignee" string="تأیید واگذاری دستی" type="object"
+                    <button name="action_confirm_manual_assignee" string="Confirm Manual Assignment" type="object"
                             class="btn-secondary"
                             groups="home_care.group_care_manager"
                             invisible="state != 'in_progress' or not user_id or assignee_confirmed"/>
-                    <button name="action_open_change_assignee_wizard" string="تغییر پذیرنده" type="object"
+                    <button name="action_open_change_assignee_wizard" string="Change Provider" type="object"
                             class="btn-secondary"
                             groups="home_care.group_care_manager"
                             invisible="state != 'in_progress' or not assignee_confirmed"/>
-                    <button name="action_provider_complete_service" string="انجام خدمت" type="object"
+                    <button name="action_provider_complete_service" string="Complete Service" type="object"
                             class="btn-success" invisible="not can_provider_complete_service"/>
-                    <button name="action_create_step_invoice" string="ایجاد فاکتور" type="object"
+                    <button name="action_create_step_invoice" string="Create Invoice" type="object"
                             invisible="not can_step_create_invoice"/>
-                    <button name="action_open_provider_invoice_wizard" string="فاکتور خدمت اضافه" type="object"
-                            invisible="state in ('done', 'cancelled')"/>
-                    <button name="action_cancel" string="لغو" type="object"
+                    <button name="action_open_provider_invoice_wizard" string="Create Invoice" type="object"
+                            invisible="not can_step_create_invoice"/>
+                    <button name="action_cancel" string="Cancel" type="object"
                             invisible="state in ('done', 'cancelled')"/>
                     <field name="state" invisible="1"/>
                     <field name="workflow_id" invisible="1"/>
@@ -62,27 +62,27 @@
                     <div class="oe_button_box" name="button_box">
                         <button class="oe_stat_button" type="object" name="action_view_invoices"
                                 icon="fa-pencil-square-o">
-                            <field name="invoice_count" widget="statinfo" string="فاکتور"/>
+                            <field name="invoice_count" widget="statinfo" string="Invoices"/>
                         </button>
                         <button class="oe_stat_button" type="object" name="action_view_sale_order"
                                 icon="fa-shopping-cart" invisible="sale_order_count == 0">
-                            <field name="sale_order_count" widget="statinfo" string="سفارش فروش"/>
+                            <field name="sale_order_count" widget="statinfo" string="Sales Order"/>
                         </button>
                         <button class="oe_stat_button" type="object" name="action_view_entitlement"
                                 icon="fa-archive" invisible="entitlement_count == 0">
-                            <field name="entitlement_count" widget="statinfo" string="سهمیه پکیج"/>
+                            <field name="entitlement_count" widget="statinfo" string="Package Entitlement"/>
                         </button>
                         <button class="oe_stat_button" type="object" name="action_view_documents"
                                 icon="fa-paperclip">
-                            <field name="document_count" widget="statinfo" string="مدارک"/>
+                            <field name="document_count" widget="statinfo" string="Documents"/>
                         </button>
                         <button class="oe_stat_button" type="object" name="action_view_activities"
                                 icon="fa-tasks" invisible="activity_count == 0">
-                            <field name="activity_count" widget="statinfo" string="فعالیت"/>
+                            <field name="activity_count" widget="statinfo" string="Activities"/>
                         </button>
                         <button class="oe_stat_button" type="object" name="action_view_related_requests"
                                 icon="fa-list-alt" invisible="related_request_count == 0">
-                            <field name="related_request_count" widget="statinfo" string="درخواست‌های مرتبط"/>
+                            <field name="related_request_count" widget="statinfo" string="Related Requests"/>
                         </button>
                     </div>
                     <field name="can_current_user_accept" invisible="1"/>
@@ -98,7 +98,7 @@
                     <div class="oe_title">
                         <h1><field name="name" readonly="1"/></h1>
                     </div>
-                    <group string="درخواست خدمت">
+                    <group string="Service Request">
                         <group>
                             <field name="partner_id"/>
                             <field name="request_type"/>
@@ -127,7 +127,7 @@
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
-                    <group string="زمان‌بندی">
+                    <group string="Scheduling">
                         <group>
                             <field name="preferred_datetime_start"/>
                             <field name="preferred_datetime_end"/>
@@ -139,11 +139,11 @@
                             <field name="visit_schedule_display" readonly="1"/>
                         </group>
                     </group>
-                    <field name="description" placeholder="توضیحات درخواست..."/>
+                    <field name="description" placeholder="Request description..."/>
                     <notebook>
-                        <page string="اطلاعات هویتی" name="patient_identity">
+                        <page string="Identity Information" name="patient_identity">
                             <group>
-                                <group string="مشخصات بیمار">
+                                <group string="Patient Details">
                                     <field name="patient_first_name"/>
                                     <field name="patient_last_name"/>
                                     <field name="patient_full_name" readonly="1"/>
@@ -152,35 +152,35 @@
                                     <field name="patient_age"/>
                                     <field name="patient_gender"/>
                                 </group>
-                                <group string="تماس و آدرس">
+                                <group string="Contact &amp; Address">
                                     <field name="patient_phone"/>
-                                    <field name="patient_mobile"/>
+                                    <field name="patient_mobile"/>				
                                     <field name="patient_address"/>
                                 </group>
                             </group>
                         </page>
-                        <page string="اطلاعات بیمه‌ای" name="patient_insurance">
+                        <page string="Insurance Information" name="patient_insurance">
                             <group>
-                                <group string="بیمه پایه">
+                                <group string="Primary Insurance">
                                     <field name="insurance_primary_id" options="{'no_create': True}"/>
                                 </group>
-                                <group string="بیمه تکمیلی">
+                                <group string="Supplementary Insurance">
                                     <field name="insurance_supplementary_id" options="{'no_create': True}"/>
                                 </group>
                             </group>
                         </page>
-                        <page string="یادداشت‌های پذیرنده" name="provider_notes"
+                        <page string="Provider Notes" name="provider_notes"
                               invisible="not provider_complete_note and not provider_cancel_note">
                             <group>
                                 <field name="provider_complete_note" readonly="1"/>
                                 <field name="provider_cancel_note" readonly="1"/>
                             </group>
                         </page>
-                        <page string="فعالیت‌ها" name="care_activities">
+                        <page string="Activities" name="care_activities">
                             <field name="activity_ids" widget="list_activity"
                                    context="{'default_res_model': 'care.service.request', 'default_res_id': id}"/>
                         </page>
-                        <page string="پذیرش تیم" name="team_assignment"
+                        <page string="Team Assignment" name="team_assignment"
                               invisible="not assignment_offer_ids">
                             <field name="assignment_offer_ids" readonly="1">
                                 <list decoration-success="state == 'accepted'"
@@ -196,7 +196,7 @@
                                 </list>
                             </field>
                         </page>
-                        <page string="مدارک" name="documents">
+                        <page string="Documents" name="documents">
                             <field name="document_ids">
                                 <list>
                                     <field name="name"/>
@@ -205,11 +205,11 @@
                                     <field name="create_date"/>
                                     <field name="attachment_id" column_invisible="True"/>
                                     <button name="action_download" type="object"
-                                            string="دانلود" icon="fa-download" title="دانلود"/>
+                                            string="Download" icon="fa-download" title="Download"/>
                                 </list>
                             </field>
                         </page>
-                        <page string="تاریخچه مراحل" name="step_history">
+                        <page string="Step History" name="step_history">
                             <field name="step_history_ids">
                                 <list>
                                     <field name="step_id"/>
@@ -219,7 +219,7 @@
                                 </list>
                             </field>
                         </page>
-                        <page string="فاکتورها" name="invoices">
+                        <page string="Invoices" name="invoices">
                             <field name="invoice_ids" readonly="1">
                                 <list>
                                     <field name="name"/>
@@ -254,7 +254,7 @@
                         <field name="name" class="fw-bold"/>
                         <div><field name="partner_id"/></div>
                         <div t-if="record.patient_full_name.value">
-                            بیمار: <field name="patient_full_name"/>
+                            Patient: <field name="patient_full_name"/>
                         </div>
                         <div><field name="product_id"/></div>
                         <div class="text-muted"><field name="team_id"/> — <field name="user_id"/></div>
@@ -268,7 +268,7 @@
         <field name="name">care.service.request.calendar</field>
         <field name="model">care.service.request</field>
         <field name="arch" type="xml">
-            <calendar string="زمان‌بندی حضور" date_start="visit_datetime_start"
+            <calendar string="Visit Schedule" date_start="visit_datetime_start"
                       date_stop="visit_datetime_end" color="user_id" mode="week">
                 <field name="name"/>
                 <field name="partner_id"/>
@@ -279,7 +279,7 @@
     </record>
 
     <record id="care_service_request_action" model="ir.actions.act_window">
-        <field name="name">درخواست‌های خدمت</field>
+        <field name="name">Service Requests</field>
         <field name="res_model">care.service.request</field>
         <field name="view_mode">list,form,kanban,graph,pivot</field>
         <field name="group_ids" eval="[(4, ref('home_care.group_care_user'))]"/>

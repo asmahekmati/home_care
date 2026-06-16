@@ -6,7 +6,7 @@ class CareServiceRequestTeam(models.Model):
     _inherit = 'care.service.request'
 
     assignee_confirmed = fields.Boolean(
-        string='پذیرنده تأیید شده',
+        string='Provider Confirmed',
         default=False,
         copy=False,
         tracking=True,
@@ -28,10 +28,10 @@ class CareServiceRequestTeam(models.Model):
     def action_open_change_assignee_wizard(self):
         self.ensure_one()
         if not self.assignee_confirmed or not self.user_id:
-            raise UserError(_('پذیرنده تأیید‌شده‌ای برای تغییر وجود ندارد.'))
+            raise UserError(_('There is no confirmed provider to change.'))
         return {
             'type': 'ir.actions.act_window',
-            'name': _('تغییر پذیرنده'),
+            'name': _('Change Provider'),
             'res_model': 'care.change.assignee.wizard',
             'view_mode': 'form',
             'target': 'new',
@@ -46,7 +46,7 @@ class CareServiceRequestTeam(models.Model):
         if old_user:
             self.message_post(
                 body=_(
-                    'ارجاع درخواست %s از شما برداشته شد. مشتری: %s — خدمت: %s'
+                    'Request %s was unassigned from you. Customer: %s — Service: %s'
                 ) % (
                     self.name,
                     self.partner_id.name or '',
@@ -58,7 +58,7 @@ class CareServiceRequestTeam(models.Model):
         if new_user:
             self.message_post(
                 body=_(
-                    'درخواست %s به شما ارجاع شد. مشتری: %s — خدمت: %s'
+                    'Request %s was assigned to you. Customer: %s — Service: %s'
                 ) % (
                     self.name,
                     self.partner_id.name or '',
@@ -93,7 +93,7 @@ class CareServiceRequestTeam(models.Model):
     def action_view_my_provider_requests(self):
         return {
             'type': 'ir.actions.act_window',
-            'name': _('درخواست‌های من (پذیرنده)'),
+            'name': _('My Requests (Provider)'),
             'res_model': 'care.service.request',
             'view_mode': 'list,form',
             'domain': self._provider_portal_domain(),
@@ -101,7 +101,7 @@ class CareServiceRequestTeam(models.Model):
 
     @api.model
     def _provider_portal_domain(self, user=None):
-        """درخواست‌هایی که پذیرنده مسئول است یا پیشنهاد پذیرش در انتظار دارد."""
+        """Requests where the provider is assigned or has a pending assignment offer."""
         user = user or self.env.user
         pending_request_ids = self.env['care.request.assignment.offer'].search([
             ('user_id', '=', user.id),
@@ -159,7 +159,7 @@ class CareServiceRequestTeam(models.Model):
                 new_uid = vals['user_id']
                 if new_uid and new_uid != req.user_id.id:
                     raise UserError(_(
-                        'پذیرنده تأیید شده است. برای تغییر از دکمه «تغییر پذیرنده» استفاده کنید.'
+                        'The provider is confirmed. Use the "Change Provider" button to reassign.'
                     ))
         if vals.get('user_id') is False:
             vals['assignee_confirmed'] = False
@@ -174,9 +174,9 @@ class CareServiceRequestTeam(models.Model):
     def action_confirm_manual_assignee(self):
         for req in self:
             if not req.user_id:
-                raise UserError(_('ابتدا مسئول را انتخاب کنید.'))
+                raise UserError(_('Select an assignee first.'))
             if req.assignee_confirmed:
-                raise UserError(_('پذیرنده قبلاً تأیید شده است.'))
+                raise UserError(_('The provider is already confirmed.'))
             req._sync_manual_assignment(req.user_id)
             req.assignee_confirmed = True
         return True
@@ -209,7 +209,7 @@ class CareServiceRequestTeam(models.Model):
                     'accepted_at': fields.Datetime.now(),
                 })
         self.message_post(
-            body=_('مسئول به صورت دستی تعیین شد: %s') % user.name,
+            body=_('Assignee set manually: %s') % user.name,
             subtype_xmlid='mail.mt_note',
         )
 
@@ -229,13 +229,13 @@ class CareServiceRequestTeam(models.Model):
             if req.user_id != user and not self.env.user.has_group(
                 'home_care.group_care_manager'
             ):
-                raise UserError(_('فقط پذیرنده مسئول می‌تواند خدمت را انجام‌شده اعلام کند.'))
+                raise UserError(_('Only the assigned provider can mark the service as completed.'))
             if not req.current_step_id or not req.current_step_id.allow_provider_complete:
-                raise UserError(_('در این مرحله امکان اعلام انجام خدمت وجود ندارد.'))
+                raise UserError(_('Service completion is not allowed at this step.'))
             if note:
                 req.provider_complete_note = note
                 req.message_post(
-                    body=_('توضیحات تکمیل توسط پذیرنده: %s') % note,
+                    body=_('Completion notes by provider: %s') % note,
                     subtype_xmlid='mail.mt_note',
                 )
             req.action_proceed_workflow()
@@ -247,13 +247,13 @@ class CareServiceRequestTeam(models.Model):
             if req.user_id != user and not self.env.user.has_group(
                 'home_care.group_care_manager'
             ):
-                raise UserError(_('فقط پذیرنده مسئول می‌تواند درخواست را لغو کند.'))
+                raise UserError(_('Only the assigned provider can cancel the request.'))
             if not req.current_step_id or not req.current_step_id.allow_provider_cancel:
-                raise UserError(_('در این مرحله امکان لغو توسط پذیرنده وجود ندارد.'))
+                raise UserError(_('Provider cancellation is not allowed at this step.'))
             if note:
                 req.provider_cancel_note = note
                 req.message_post(
-                    body=_('توضیحات لغو توسط پذیرنده: %s') % note,
+                    body=_('Cancellation notes by provider: %s') % note,
                     subtype_xmlid='mail.mt_note',
                 )
             req._move_to_cancel_step()
@@ -262,10 +262,10 @@ class CareServiceRequestTeam(models.Model):
     def action_open_accept_assignment_wizard(self):
         self.ensure_one()
         if not self.can_current_user_accept:
-            raise UserError(_('امکان پذیرش این درخواست برای شما وجود ندارد.'))
+            raise UserError(_('You cannot accept this request.'))
         return {
             'type': 'ir.actions.act_window',
-            'name': _('پذیرش درخواست و زمان‌بندی حضور'),
+            'name': _('Accept Request and Schedule Visit'),
             'res_model': 'care.accept.assignment.wizard',
             'view_mode': 'form',
             'target': 'new',
@@ -281,10 +281,10 @@ class CareServiceRequestTeam(models.Model):
                 and o.step_id == req.current_step_id
             )[:1]
             if not offer:
-                raise UserError(_('پیشنهاد فعالی برای پذیرش شما وجود ندارد.'))
+                raise UserError(_('You have no active offer to accept.'))
             if req.user_id:
                 raise UserError(
-                    _('این درخواست قبلاً توسط %s پذیرفته شده است.')
+                    _('This request was already accepted by %s.')
                     % req.user_id.name
                 )
             step = req.current_step_id
@@ -293,7 +293,7 @@ class CareServiceRequestTeam(models.Model):
             )
             if needs_schedule:
                 if not visit_start or not visit_end:
-                    raise UserError(_('تاریخ و بازه زمانی حضور الزامی است.'))
+                    raise UserError(_('Visit date and time window are required.'))
                 req._check_visit_within_preferred(visit_start, visit_end)
                 req._check_visit_overlap(user, visit_start, visit_end)
 
@@ -319,9 +319,9 @@ class CareServiceRequestTeam(models.Model):
             req.with_context(skip_manual_assign_sync=True).write(write_vals)
             schedule_msg = ''
             if visit_start and visit_end:
-                schedule_msg = _(' — زمان حضور: %s') % req.visit_schedule_display
+                schedule_msg = _(' — Visit time: %s') % req.visit_schedule_display
             req.message_post(
-                body=_('درخواست توسط %s پذیرفته شد.%s') % (user.name, schedule_msg),
+                body=_('Request accepted by %s.%s') % (user.name, schedule_msg),
                 subtype_xmlid='mail.mt_note',
             )
             req._send_customer_assignee_sms()
@@ -367,7 +367,7 @@ class CareServiceRequestTeam(models.Model):
         for req in self.filtered(lambda r: r.state == 'in_progress' and r.user_id):
             step = req.current_step_id
             if not step or not step.team_acceptance_mode:
-                raise UserError(_('این درخواست در حالت پذیرش تیمی نیست.'))
+                raise UserError(_('This request is not in team acceptance mode.'))
             old = req.user_id
             req.assignment_offer_ids.filtered(
                 lambda o: o.step_id == step and o.user_id == old
@@ -376,7 +376,7 @@ class CareServiceRequestTeam(models.Model):
                 'user_id': False,
                 'assignee_confirmed': False,
             })
-            req.message_post(body=_('مشتری پذیرنده %s را رد کرد.') % old.name)
+            req.message_post(body=_('Customer rejected provider %s.') % old.name)
             req._create_team_assignment_offers(step)
             if step.send_team_sms:
                 req._send_team_assignment_sms(step)
@@ -393,7 +393,7 @@ class CareServiceRequestTeam(models.Model):
     def action_customer_cancel_request(self):
         for req in self.filtered(lambda r: r.state not in ('done', 'cancelled')):
             if not req.customer_can_cancel_request():
-                raise UserError(_('در مرحله فعلی امکان لغو درخواست توسط مشتری وجود ندارد.'))
+                raise UserError(_('Customer cancellation is not allowed at the current step.'))
             req._move_to_cancel_step()
         return True
 
@@ -409,7 +409,6 @@ class CareServiceRequestTeam(models.Model):
         team = self.team_id or step.auto_team_id
         if not team:
             return
-        # پیشنهادهای قبلی همین مرحله را لغو کن
         self.assignment_offer_ids.filtered(
             lambda o: o.step_id == step and o.state == 'pending'
         ).write({'state': 'cancelled'})
@@ -450,7 +449,7 @@ class CareServiceRequestTeam(models.Model):
             number = self._get_partner_sms_number(partner)
             if not number:
                 self.message_post(
-                    body=_('ارسال SMS به %s ممکن نبود: شماره تماس ثبت نشده.')
+                    body=_('Could not send SMS to %s: no phone number on file.')
                     % user.name,
                     subtype_xmlid='mail.mt_note',
                 )
@@ -469,7 +468,7 @@ class CareServiceRequestTeam(models.Model):
                 offers.write({'sms_sent': True})
             except Exception:
                 self.message_post(
-                    body=_('خطا در ارسال SMS به %s') % user.name,
+                    body=_('Failed to send SMS to %s') % user.name,
                     subtype_xmlid='mail.mt_note',
                 )
 
@@ -495,7 +494,7 @@ class CareServiceRequestTeam(models.Model):
             step = req.current_step_id
             if step and step.team_acceptance_mode and not step.auto_user_id and not req.user_id:
                 raise UserError(
-                    _('برای مرحله «%s» ابتدا یک عضو تیم باید درخواست را بپذیرد.')
+                    _('A team member must accept the request before step "%s".')
                     % step.name
                 )
 

@@ -1,14 +1,15 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class CarePackageEntitlement(models.Model):
     _name = 'care.package.entitlement'
-    _description = 'سهمیه پکیج مشتری'
+    _description = 'Customer Package Entitlement'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'date_start desc, id desc'
 
     name = fields.Char(
-        string='شماره',
+        string='Number',
         required=True,
         copy=False,
         readonly=True,
@@ -16,7 +17,7 @@ class CarePackageEntitlement(models.Model):
     )
     partner_id = fields.Many2one(
         'res.partner',
-        string='مشتری',
+        string='Customer',
         required=True,
         ondelete='restrict',
         tracking=True,
@@ -24,7 +25,7 @@ class CarePackageEntitlement(models.Model):
     )
     package_product_id = fields.Many2one(
         'product.product',
-        string='پکیج',
+        string='Package',
         required=True,
         ondelete='restrict',
         domain=[('product_tmpl_id.is_care_package', '=', True)],
@@ -32,24 +33,24 @@ class CarePackageEntitlement(models.Model):
     )
     subscription_id = fields.Many2one(
         'sale.order',
-        string='اشتراک',
+        string='Subscription',
         ondelete='set null',
         index=True,
     )
     sale_order_line_id = fields.Many2one(
         'sale.order.line',
-        string='خط سفارش',
+        string='Order Line',
         ondelete='set null',
     )
-    date_start = fields.Date(string='شروع', required=True, tracking=True)
-    date_end = fields.Date(string='پایان', required=True, tracking=True)
+    date_start = fields.Date(string='Start Date', required=True, tracking=True)
+    date_end = fields.Date(string='End Date', required=True, tracking=True)
     state = fields.Selection(
         [
-            ('active', 'فعال'),
-            ('expired', 'منقضی'),
-            ('cancelled', 'لغوشده'),
+            ('active', 'Active'),
+            ('expired', 'Expired'),
+            ('cancelled', 'Cancelled'),
         ],
-        string='وضعیت',
+        string='Status',
         default='active',
         required=True,
         tracking=True,
@@ -60,13 +61,13 @@ class CarePackageEntitlement(models.Model):
     line_ids = fields.One2many(
         'care.package.entitlement.line',
         'entitlement_id',
-        string='سهمیه خدمات',
+        string='Service Entitlements',
         copy=True,
     )
     request_ids = fields.One2many(
         'care.service.request',
         'entitlement_id',
-        string='درخواست‌ها',
+        string='Requests',
     )
     request_count = fields.Integer(compute='_compute_request_count')
     company_id = fields.Many2one(
@@ -156,7 +157,7 @@ class CarePackageEntitlement(models.Model):
             self.state = 'active'
 
     def get_available_service_products(self):
-        """خدمات قابل درخواست از این سهمیه."""
+        """Services that can be requested from this entitlement."""
         self.ensure_one()
         if self.state != 'active':
             return self.env['product.product']
@@ -182,33 +183,32 @@ class CarePackageEntitlement(models.Model):
             lambda l: l.included_service_id == product
         )[:1]
         if not line:
-            from odoo.exceptions import UserError
-            raise UserError('این خدمت در سهمیه پکیج شما وجود ندارد.')
+            raise UserError(_('This service is not included in your package entitlement.'))
         line.consume_one()
         return line
 
 
 class CarePackageEntitlementLine(models.Model):
     _name = 'care.package.entitlement.line'
-    _description = 'خط سهمیه خدمت'
+    _description = 'Package Entitlement Line'
     _order = 'entitlement_id, id'
 
     entitlement_id = fields.Many2one(
         'care.package.entitlement',
-        string='سهمیه',
+        string='Entitlement',
         required=True,
         ondelete='cascade',
     )
     included_service_id = fields.Many2one(
         'product.product',
-        string='خدمت',
+        string='Service',
         required=True,
         domain=[('is_care_service', '=', True)],
     )
-    qty_total = fields.Float(string='کل', required=True)
-    qty_used = fields.Float(string='مصرف‌شده', default=0.0)
+    qty_total = fields.Float(string='Total', required=True)
+    qty_used = fields.Float(string='Used', default=0.0)
     qty_remaining = fields.Float(
-        string='باقیمانده',
+        string='Remaining',
         compute='_compute_qty_remaining',
         store=True,
     )
@@ -221,6 +221,5 @@ class CarePackageEntitlementLine(models.Model):
     def consume_one(self):
         self.ensure_one()
         if self.qty_remaining <= 0:
-            from odoo.exceptions import UserError
-            raise UserError('سهمیه این خدمت تمام شده است.')
+            raise UserError(_('The quota for this service is exhausted.'))
         self.qty_used += 1.0

@@ -5,22 +5,22 @@ from odoo.exceptions import UserError
 
 class CareChangeAssigneeWizard(models.TransientModel):
     _name = 'care.change.assignee.wizard'
-    _description = 'تغییر پذیرنده درخواست'
+    _description = 'Change Request Provider'
 
     request_id = fields.Many2one(
         'care.service.request',
-        string='درخواست',
+        string='Request',
         required=True,
         ondelete='cascade',
     )
     current_user_id = fields.Many2one(
         'res.users',
-        string='پذیرنده فعلی',
+        string='Current Provider',
         readonly=True,
     )
     new_user_id = fields.Many2one(
         'res.users',
-        string='پذیرنده جدید',
+        string='New Provider',
         required=True,
         domain="[('id', 'in', team_member_ids)]",
     )
@@ -45,13 +45,13 @@ class CareChangeAssigneeWizard(models.TransientModel):
         old_user = req.user_id
         new_user = self.new_user_id
         if not req.assignee_confirmed:
-            raise UserError(_('پذیرنده هنوز تأیید نشده است.'))
+            raise UserError(_('The provider is not confirmed yet.'))
         if not new_user:
-            raise UserError(_('پذیرنده جدید را انتخاب کنید.'))
+            raise UserError(_('Select a new provider.'))
         if old_user == new_user:
-            raise UserError(_('پذیرنده جدید با پذیرنده فعلی یکسان است.'))
+            raise UserError(_('The new provider is the same as the current provider.'))
         if new_user not in req.team_member_ids:
-            raise UserError(_('پذیرنده جدید باید عضو تیم باشد.'))
+            raise UserError(_('The new provider must be a team member.'))
         req.with_context(change_assignee_wizard=True).write({'user_id': new_user.id})
         req._sync_manual_assignment(new_user)
         req._notify_assignee_change(old_user, new_user)
