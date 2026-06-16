@@ -1,0 +1,2367 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* home_care
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-15 12:00+0000\n"
+"PO-Revision-Date: 2026-06-15 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: home_care
+#: model:ir.actions.act_window,name:home_care.action_care_request_invoice_wizard_popup
+#: model_terms:ir.ui.view,arch_db:home_care.care_request_invoice_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Create Invoice"
+msgstr "ایجاد فاکتور"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_account_move_line__description
+#: model:ir.model.fields,field_description:home_care.field_care_request_invoice_wizard_line__description
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Description"
+msgstr "توضیحات"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__allow_create_invoice
+#: model_terms:ir.ui.view,arch_db:home_care.care_workflow_template_view_form
+msgid "Allow Create Invoice"
+msgstr "امکان ایجاد فاکتور"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__allow_create_invoice
+msgid "Shows the create invoice action in the provider portal and backend on this workflow step."
+msgstr "نمایش دکمه ایجاد فاکتور در پورتال پذیرنده و بک‌اند در این مرحله فرآیند."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_invoice.py:0
+msgid "Invoice creation is not enabled on the current workflow step."
+msgstr "امکان ایجاد فاکتور در مرحله فعلی فرآیند فعال نیست."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_invoice.py:0
+msgid "You cannot create an invoice for this request."
+msgstr "امکان ایجاد فاکتور برای این درخواست وجود ندارد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_invoice.py:0
+msgid "Enter at least one invoice line."
+msgstr "حداقل یک ردیف فاکتور وارد کنید."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_invoice.py:0
+msgid "Invoices cannot be created in the current request state."
+msgstr "در این وضعیت امکان ایجاد فاکتور وجود ندارد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_invoice.py:0
+msgid "At least one product line is required."
+msgstr "حداقل یک ردیف محصول لازم است."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_invoice.py:0
+msgid "The request has been cancelled."
+msgstr "درخواست لغو شده است."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_invoice.py:0
+msgid "Request %s — Step %s"
+msgstr "درخواست %s — مرحله %s"
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_invoice.py:0
+msgid "Related Requests"
+msgstr "درخواست‌های مرتبط"
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_invoice.py:0
+msgid "No related sales order found."
+msgstr "سفارش فروش مرتبطی یافت نشد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_invoice.py:0
+msgid "No package entitlement found."
+msgstr "سهمیه پکیجی یافت نشد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_invoice.py:0
+msgid "Documents"
+msgstr "مدارک"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__invoice_ids
+msgid "Invoices"
+msgstr "فاکتورها"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__portal_status_display
+msgid "Status (Step)"
+msgstr "وضعیت (مرحله)"
+
+#. module: home_care
+#: code:addons/home_care/controllers/portal_provider.py:0
+msgid "Request not found."
+msgstr "درخواست یافت نشد."
+
+#. module: home_care
+#: code:addons/home_care/controllers/portal_provider.py:0
+msgid "This request has not been assigned to you."
+msgstr "این درخواست به شما ارجاع نشده است."
+
+#. module: home_care
+#: code:addons/home_care/controllers/portal.py:0
+msgid "You do not have access to this request."
+msgstr "دسترسی به این درخواست ندارید."
+
+#. module: home_care
+#: code:addons/home_care/controllers/portal.py:0
+msgid "The selected insurance is not valid."
+msgstr "بیمه انتخاب‌شده معتبر نیست."
+
+#. module: home_care
+#: code:addons/home_care/controllers/portal.py:0
+msgid "Preferred time window (start and end) is required."
+msgstr "بازه زمانی ترجیحی (شروع و پایان) الزامی است."
+
+#. module: home_care
+#: code:addons/home_care/controllers/portal.py:0
+msgid "Preferred end time must be after the start time."
+msgstr "پایان بازه ترجیحی باید بعد از شروع آن باشد."
+
+#. module: home_care
+#: code:addons/home_care/controllers/portal.py:0
+msgid "You do not have access to this package."
+msgstr "دسترسی به این پکیج ندارید."
+
+#. module: home_care
+#: code:addons/home_care/controllers/portal.py:0
+msgid "This service is not available in your package entitlement."
+msgstr "این خدمت در سهمیه پکیج شما موجود نیست."
+
+#. module: home_care
+#: code:addons/home_care/controllers/portal.py:0
+msgid "You do not have access to this order."
+msgstr "دسترسی به این سفارش ندارید."
+
+#. module: home_care
+#: code:addons/home_care/controllers/portal.py:0
+msgid "The selected product is not a care service."
+msgstr "محصول انتخاب‌شده یک خدمت مراقبت نیست."
+
+#. module: home_care
+#: code:addons/home_care/controllers/portal.py:0
+msgid "Access denied."
+msgstr "دسترسی ندارید."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "My Requests (Provider)"
+msgstr "درخواست‌های من (پذیرنده)"
+
+#. module: home_care
+#: model:ir.ui.menu,name:home_care.menu_home_care_root
+msgid "Home Care"
+msgstr "مراقبت در منزل"
+
+#. module: home_care
+#: model:ir.ui.menu,name:home_care.menu_care_requests
+msgid "Requests"
+msgstr "درخواست‌ها"
+
+#. module: home_care
+#: model:ir.ui.menu,name:home_care.menu_care_my_provider_tasks
+#: model:ir.actions.server,name:home_care.care_service_request_action_provider_tasks
+msgid "My Tasks"
+msgstr "کارهای من"
+
+#. module: home_care
+#: model:ir.ui.menu,name:home_care.menu_care_my_provider_requests
+#: model:ir.actions.server,name:home_care.care_service_request_action_provider_server
+msgid "My Requests (Provider)"
+msgstr "درخواست‌های من (پذیرنده)"
+
+#. module: home_care
+#: model:ir.ui.menu,name:home_care.menu_care_entitlements
+msgid "Package Entitlements"
+msgstr "سهمیه پکیج‌ها"
+
+#. module: home_care
+#: model:ir.ui.menu,name:home_care.menu_care_config
+msgid "Configuration"
+msgstr "پیکربندی"
+
+#. module: home_care
+#: model:ir.ui.menu,name:home_care.menu_care_categories
+msgid "Request Categories"
+msgstr "دسته‌بندی درخواست"
+
+#. module: home_care
+#: model:ir.ui.menu,name:home_care.menu_care_workflows
+#: model:ir.actions.act_window,name:home_care.care_workflow_template_action
+msgid "Workflows"
+msgstr "فرآیندها"
+
+#. module: home_care
+#: model:ir.ui.menu,name:home_care.menu_care_teams
+msgid "Teams"
+msgstr "تیم‌ها"
+
+#. module: home_care
+#: model:ir.ui.menu,name:home_care.menu_care_insurances
+msgid "Insurances"
+msgstr "بیمه‌ها"
+
+#. module: home_care
+#: model:ir.actions.act_window,name:home_care.care_service_request_action
+msgid "Service Requests"
+msgstr "درخواست‌های خدمت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Accept Request"
+msgstr "پذیرش درخواست"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Confirm Manual Assignment"
+msgstr "تأیید واگذاری دستی"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Change Provider"
+msgstr "تغییر پذیرنده"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Complete Service"
+msgstr "انجام خدمت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Cancel"
+msgstr "انصراف"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Sales Order"
+msgstr "سفارش فروش"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Package Entitlement"
+msgstr "سهمیه پکیج"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Activities"
+msgstr "فعالیت‌ها"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Service Request"
+msgstr "درخواست خدمت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Scheduling"
+msgstr "زمان‌بندی"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Request description..."
+msgstr "توضیحات درخواست..."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Identity Information"
+msgstr "اطلاعات هویتی"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Patient Details"
+msgstr "مشخصات بیمار"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Contact & Address"
+msgstr "تماس و آدرس"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Insurance Information"
+msgstr "اطلاعات بیمه‌ای"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Primary Insurance"
+msgstr "بیمه پایه"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Supplementary Insurance"
+msgstr "بیمه تکمیلی"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Provider Notes"
+msgstr "یادداشت‌های پذیرنده"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Team Assignment"
+msgstr "پذیرش تیم"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Download"
+msgstr "دانلود"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_form
+msgid "Step History"
+msgstr "تاریخچه مراحل"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_kanban
+msgid "Patient:"
+msgstr "بیمار:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_calendar
+msgid "Visit Schedule"
+msgstr "زمان‌بندی حضور"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_workflow_template_view_form
+msgid "Steps"
+msgstr "مراحل"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_my_home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_my_home_menu_care
+msgid "Care Requests"
+msgstr "درخواست‌های مراقبت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_my_home_care
+msgid "Submit and track home care service requests"
+msgstr "ثبت و پیگیری درخواست خدمات مراقبت در منزل"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_my_home_care
+msgid "Requests assigned to you"
+msgstr "درخواست‌های ارجاع‌شده به شما"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_my_home_care
+msgid "List of accepted tasks with visit schedule"
+msgstr "لیست کارهای پذیرفته‌شده با زمان حضور"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_my_home_menu_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_requests
+msgid "New Request"
+msgstr "درخواست جدید"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_requests
+msgid "Home Care Requests"
+msgstr "درخواست‌های مراقبت در منزل"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_requests
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Back"
+msgstr "بازگشت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_requests
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_invoices_card
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_requests
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_tasks
+msgid "Number"
+msgstr "شماره"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_requests
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Service"
+msgstr "خدمت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_requests
+msgid "Provider"
+msgstr "پذیرنده"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_requests
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_requests
+msgid "Status"
+msgstr "وضعیت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_requests
+msgid "Preferred Time"
+msgstr "بازه ترجیحی"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_requests
+msgid "No requests have been submitted yet."
+msgstr "هنوز درخواستی ثبت نشده است."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Provider rejected; request reassigned to other members."
+msgstr "پذیرنده رد شد؛ درخواست به سایر اعضا ارجاع شد."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Service Provider"
+msgstr "پذیرنده خدمت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_assignee
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_requests
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_tasks
+msgid "Visit Time"
+msgstr "زمان حضور"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Provider Profile"
+msgstr "مشخصات پذیرنده"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_assignee
+msgid "Reject this provider?"
+msgstr "این پذیرنده رد شود؟"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_assignee
+msgid "I don't want this provider"
+msgstr "این پذیرنده را نمی‌خواهم"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_assignee
+msgid "Cancel the entire request?"
+msgstr "کل درخواست لغو شود؟"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_assignee
+msgid "Cancel Request"
+msgstr "لغو کل درخواست"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Request Details"
+msgstr "جزئیات درخواست"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Category:"
+msgstr "دسته‌بندی:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Upload Documents"
+msgstr "آپلود مدارک"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Upload"
+msgstr "آپلود"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Document upload is required to proceed to the next step."
+msgstr "برای رفتن به مرحله بعد، آپلود مدرک الزامی است."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Uploaded Documents"
+msgstr "مدارک آپلودشده"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Next Step"
+msgstr "مرحله بعد"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Entered:"
+msgstr "ورود:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_detail
+msgid "Exited:"
+msgstr "خروج:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Submit Service Request"
+msgstr "ثبت درخواست خدمت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Request for"
+msgstr "درخواست برای"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Myself"
+msgstr "خودم"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Someone else"
+msgstr "دیگری"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Patient Information"
+msgstr "اطلاعات بیمار"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "First Name"
+msgstr "نام"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Last Name"
+msgstr "نام خانوادگی"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "National ID"
+msgstr "کد ملی"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Case Code"
+msgstr "کد پرونده"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Age"
+msgstr "سن"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Gender"
+msgstr "جنسیت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Male"
+msgstr "مرد"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Female"
+msgstr "زن"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Other"
+msgstr "سایر"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_assignee
+msgid "Phone"
+msgstr "تلفن"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Mobile"
+msgstr "موبایل"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Address"
+msgstr "آدرس"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "— Select —"
+msgstr "— انتخاب کنید —"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Request Type"
+msgstr "نوع درخواست"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "From Active Package"
+msgstr "از پکیج فعال"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Standalone Purchase (Previous Order)"
+msgstr "خرید جداگانه (سفارش قبلی)"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Active Package"
+msgstr "پکیج فعال"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "until"
+msgstr "تا"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "— Select a package first —"
+msgstr "— ابتدا پکیج را انتخاب کنید —"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Order / Purchased Service"
+msgstr "سفارش / خدمت خریداری‌شده"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Remaining:"
+msgstr "باقیمانده:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "To purchase a new service, buy the service product from the"
+msgstr "برای خرید خدمت جدید، ابتدا از"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Shop"
+msgstr "فروشگاه"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "first."
+msgstr "محصول خدمت را خریداری کنید."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Preferred Time Window"
+msgstr "بازه زمانی ترجیحی"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Start"
+msgstr "شروع"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "End"
+msgstr "پایان"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Notes"
+msgstr "توضیحات"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_new
+msgid "Submit Request"
+msgstr "ثبت درخواست"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_assignee
+msgid "← Back to Request"
+msgstr "← بازگشت به درخواست"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_assignee
+msgid "Service Provider Profile"
+msgstr "مشخصات پذیرنده خدمت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_assignee
+msgid "Provider"
+msgstr "پذیرنده"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_request_assignee
+msgid "Request"
+msgstr "درخواست"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_requests
+msgid "Requests Assigned to Me"
+msgstr "درخواست‌های ارجاع‌شده به من"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_requests
+msgid "No requests found."
+msgstr "درخواستی نیست."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_requests
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Customer"
+msgstr "مشتری"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_requests
+msgid "Assignment"
+msgstr "ارجاع"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_requests
+msgid "Accepted by you"
+msgstr "پذیرفته توسط شما"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_requests
+msgid "Awaiting your acceptance"
+msgstr "در انتظار پذیرش شما"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_invoice_tax_tags
+msgid "Remove"
+msgstr "حذف"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_invoice_tax_tags
+msgid "Add tax..."
+msgstr "افزودن مالیات..."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_invoices_card
+msgid "Invoices for this Request"
+msgstr "فاکتورهای این درخواست"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_invoices_card
+msgid "No invoices have been created for this request yet."
+msgstr "هنوز فاکتوری برای این درخواست ثبت نشده است."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_invoices_card
+msgid "Draft"
+msgstr "پیش‌نویس"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_invoices_card
+msgid "After confirmation"
+msgstr "پس از تأیید"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_invoices_card
+msgid "Date"
+msgstr "تاریخ"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_invoices_card
+msgid "Amount"
+msgstr "مبلغ"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_care_invoices_card
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "View"
+msgstr "مشاهده"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Invoice created successfully."
+msgstr "فاکتور با موفقیت ثبت شد."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "You have accepted the request."
+msgstr "درخواست را پذیرفتید."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Service completion recorded."
+msgstr "انجام خدمت ثبت شد."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Accept Request and Schedule Visit"
+msgstr "پذیرش درخواست و زمان‌بندی حضور"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Customer's preferred time:"
+msgstr "بازه درخواستی مشتری:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Your visit must fall within this time window."
+msgstr "بازه حضور شما باید داخل این بازه باشد."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Visit Start"
+msgstr "شروع حضور"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Visit End"
+msgstr "پایان حضور"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Details"
+msgstr "جزئیات"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_tasks
+msgid "Patient"
+msgstr "بیمار"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Customer Preferred Time:"
+msgstr "بازه ترجیحی مشتری:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Contact:"
+msgstr "تماس:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Completion Notes:"
+msgstr "توضیحات تکمیل:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Cancellation Notes:"
+msgstr "توضیحات لغو:"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Final Actions"
+msgstr "اقدامات پایانی"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Completion Notes"
+msgstr "توضیحات تکمیل"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Notes about service completion..."
+msgstr "توضیحات مربوط به انجام خدمت..."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Complete / Mark Service Done"
+msgstr "تکمیل / انجام خدمت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Are you sure you want to cancel this request?"
+msgstr "آیا از لغو این درخواست مطمئن هستید؟"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Cancellation Notes"
+msgstr "توضیحات لغو"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Reason for cancellation..."
+msgstr "دلیل لغو فرآیند..."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Cancel Process"
+msgstr "لغو فرآیند"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Quantity"
+msgstr "تعداد"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Unit Price"
+msgstr "قیمت"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Discount (%)"
+msgstr "تخفیف (%)"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Taxes"
+msgstr "مالیات"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Add Line"
+msgstr "افزودن ردیف"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Select..."
+msgstr "انتخاب..."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_request_detail
+msgid "Optional line description"
+msgstr "توضیحات اختیاری ردیف"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_tasks
+msgid "Assigned Requests"
+msgstr "درخواست‌های ارجاع‌شده"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_tasks
+msgid "No accepted tasks with a scheduled visit time."
+msgstr "کار پذیرفته‌شده‌ای با زمان‌بندی ثبت‌شده نیست."
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.portal_provider_tasks
+msgid "Step"
+msgstr "مرحله"
+
+#. module: home_care
+#: code:addons/home_care/wizard/care_invoice_wizard.py:0
+msgid "You do not have access to this invoice wizard."
+msgstr "امکان دسترسی به این ویزارد فاکتور وجود ندارد."
+
+#. module: home_care
+#: code:addons/home_care/wizard/care_invoice_wizard.py:0
+msgid "Select a product for each invoice line."
+msgstr "محصول ردیف فاکتور را مشخص کنید."
+
+#. module: home_care
+#: model:ir.module.module,summary:home_care
+msgid "Home care system — packages, entitlements, workflows, and service requests"
+msgstr "سیستم مراقبت در منزل — پکیج، سهمیه، فرآیند و درخواست خدمت"
+
+#. module: home_care
+#: model:ir.module.module,description:home_care
+msgid ""
+"Manage home care packages, service entitlements, configurable workflows,\n"
+"        and service request submission from the customer portal."
+msgstr ""
+"مدیریت پکیج‌های مراقبت در منزل، سهمیه خدمات، فرآیندهای قابل تنظیم\n"
+"        و ثبت درخواست خدمت از پورتال مشتری."
+
+#. module: home_care
+#: model:res.groups.privilege,name:home_care.res_groups_privilege_home_care
+msgid "Home Care"
+msgstr "مراقبت در منزل"
+
+#. module: home_care
+#: model:res.groups,name:home_care.group_care_user
+msgid "User"
+msgstr "کاربر"
+
+#. module: home_care
+#: model:res.groups,comment:home_care.group_care_user
+msgid "User can manage home care requests and configuration."
+msgstr "کاربر می‌تواند درخواست‌ها و پیکربندی مراقبت در منزل را مدیریت کند."
+
+#. module: home_care
+#: model:res.groups,name:home_care.group_care_provider
+msgid "Provider"
+msgstr "پذیرنده"
+
+#. module: home_care
+#: model:res.groups,comment:home_care.group_care_provider
+msgid "Provider can accept and perform assigned home care requests."
+msgstr "پذیرنده می‌تواند درخواست‌های ارجاع‌شده مراقبت در منزل را بپذیرد و انجام دهد."
+
+#. module: home_care
+#: model:res.groups,name:home_care.group_care_manager
+msgid "Administrator"
+msgstr "مدیر"
+
+#. module: home_care
+#: model:res.groups,comment:home_care.group_care_manager
+msgid "Administrator has full access to home care settings and requests."
+msgstr "مدیر دسترسی کامل به تنظیمات و درخواست‌های مراقبت در منزل دارد."
+
+#. module: home_care
+#: model:care.request.category,name:home_care.care_category_nursing
+msgid "Nursing Services"
+msgstr "خدمات پرستاری"
+
+#. module: home_care
+#: model:care.request.category,name:home_care.care_category_injection
+msgid "Injections"
+msgstr "تزریقات"
+
+#. module: home_care
+#: model:care.request.category,name:home_care.care_category_equipment
+msgid "Equipment"
+msgstr "تجهیزات"
+
+#. module: home_care
+#: model:care.request.category,name:home_care.care_category_lab
+msgid "Laboratory"
+msgstr "آزمایش"
+
+#. module: home_care
+#: model:care.request.category,name:home_care.care_category_visit
+msgid "Visit"
+msgstr "ویزیت"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_workflow_template
+msgid "Care Workflow Template"
+msgstr "قالب فرآیند مراقبت"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_workflow_step
+msgid "Care Workflow Step"
+msgstr "مرحله فرآیند مراقبت"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_workflow_action
+msgid "Workflow Step Action"
+msgstr "اکشن مرحله فرآیند"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_service_request
+msgid "Care Service Request"
+msgstr "درخواست خدمت مراقبت"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_request_step_history
+msgid "Care Request Step History"
+msgstr "تاریخچه مراحل درخواست"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_insurance
+msgid "Home Care Insurance"
+msgstr "بیمه مراقبت در منزل"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_team
+msgid "Home Care Team"
+msgstr "تیم مراقبت در منزل"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_request_document
+msgid "Care Request Document"
+msgstr "سند درخواست مراقبت"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_request_assignment_offer
+msgid "Care Request Assignment Offer"
+msgstr "پیشنهاد پذیرش درخواست"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_package_entitlement
+msgid "Customer Package Entitlement"
+msgstr "سهمیه پکیج مشتری"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_package_entitlement_line
+msgid "Package Entitlement Line"
+msgstr "خط سهمیه خدمت"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_package_line
+msgid "Care Package Line"
+msgstr "خط پکیج مراقبت"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_request_category
+msgid "Care Request Category"
+msgstr "دسته‌بندی درخواست مراقبت"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_accept_assignment_wizard
+msgid "Accept Request with Visit Schedule"
+msgstr "پذیرش درخواست با زمان‌بندی حضور"
+
+#. module: home_care
+#: model:ir.model,name:home_care.model_care_change_assignee_wizard
+msgid "Change Request Provider"
+msgstr "تغییر پذیرنده درخواست"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_template__name
+msgid "Workflow Name"
+msgstr "نام فرآیند"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_template__category_id
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__category_id
+#: model:ir.model.fields,field_description:home_care.field_care_package_line__category_id
+#: model:ir.model.fields,field_description:home_care.field_product_template__request_category_id
+msgid "Category"
+msgstr "دسته‌بندی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_template__description
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__description
+#: model:ir.model.fields,field_description:home_care.field_care_team__description
+#: model:ir.model.fields,field_description:home_care.field_care_request_category__description
+msgid "Description"
+msgstr "توضیحات"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_template__step_ids
+#: model_terms:ir.ui.view,arch_db:home_care.care_workflow_template_view_form
+msgid "Steps"
+msgstr "مراحل"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__name
+msgid "Step Name"
+msgstr "نام مرحله"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__workflow_id
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__workflow_id
+msgid "Workflow"
+msgstr "فرآیند"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__description
+msgid "Internal Notes"
+msgstr "توضیحات داخلی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__portal_instruction
+msgid "Customer Instructions"
+msgstr "راهنمای مشتری"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__portal_instruction
+msgid "Text shown to the customer in the portal for this step."
+msgstr "متن نمایش‌داده‌شده به مشتری در پورتال برای این مرحله."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__requires_attachment
+msgid "Requires Attachment"
+msgstr "نیاز به پیوست"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__requires_attachment
+msgid "At least one document must be uploaded before moving to the next step."
+msgstr "قبل از رفتن به مرحله بعد، حداقل یک سند باید آپلود شود."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__allow_portal_upload
+msgid "Portal Upload"
+msgstr "آپلود از پورتال"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__allow_portal_advance
+msgid "Portal Advance"
+msgstr "پیشرفت از پورتال"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__allow_portal_advance
+msgid "The customer can move to the next step in the portal when conditions are met."
+msgstr "مشتری می‌تواند در پورتال به مرحله بعد برود (در صورت برآورده شدن شرایط)."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__consumes_quota
+msgid "Consumes Quota"
+msgstr "مصرف سهمیه"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__consumes_quota
+msgid "Entering this step consumes one unit from the service entitlement."
+msgstr "با ورود به این مرحله، یک واحد از سهمیه خدمت کسر می‌شود."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__is_cancel_step
+msgid "Cancel Step"
+msgstr "مرحله لغو"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__is_cancel_step
+msgid "Clicking cancel moves the request to this step."
+msgstr "با زدن دکمه لغو، درخواست به این مرحله منتقل می‌شود."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__allow_provider_complete
+msgid "Provider Complete Button"
+msgstr "دکمه انجام خدمت (پذیرنده)"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__allow_provider_complete
+msgid "The provider can mark the service as completed from the portal (move to next step)."
+msgstr "پذیرنده می‌تواند از پورتال خدمت را انجام‌شده اعلام کند (رفتن به مرحله بعد)."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__allow_provider_cancel
+msgid "Provider Cancel Process Button"
+msgstr "دکمه لغو فرآیند (پذیرنده)"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__allow_provider_cancel
+msgid "The provider can cancel the request from the portal with a cancellation note."
+msgstr "پذیرنده می‌تواند از پورتال درخواست را با توضیحات لغو کند."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__allow_customer_cancel
+msgid "Customer Cancel Request Button"
+msgstr "دکمه لغو درخواست (مشتری)"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__allow_customer_cancel
+msgid "The customer can cancel the entire request from the portal at this step."
+msgstr "مشتری می‌تواند از پورتال کل درخواست را در این مرحله لغو کند."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__invoice_product_id
+msgid "Default Invoice Product"
+msgstr "محصول پیش‌فرض فاکتور"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__send_sms
+msgid "Send SMS to Customer"
+msgstr "ارسال SMS به مشتری"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__sms_body
+msgid "Customer SMS Text"
+msgstr "متن SMS مشتری"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__sms_body
+msgid "Variables: {partner_name}, {request_name}, {step_name}, {service_name}, {package_name}, {visit_schedule}"
+msgstr "متغیرها: {partner_name}, {request_name}, {step_name}, {service_name}, {package_name}, {visit_schedule}"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__send_team_sms
+msgid "Send SMS to Team"
+msgstr "ارسال SMS به تیم"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__send_team_sms
+msgid "Send SMS to team members (e.g. assignment step)."
+msgstr "ارسال پیامک به اعضای تیم (مثلاً مرحله ارجاع)."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__team_sms_body
+msgid "Team SMS Text"
+msgstr "متن SMS تیم"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__team_sms_body
+msgid "Variables: {user_name}, {request_name}, {patient_name}, {step_name}, {team_name}, {service_name}"
+msgstr "متغیرها: {user_name}, {request_name}, {patient_name}, {step_name}, {team_name}, {service_name}"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__team_acceptance_mode
+msgid "Team Acceptance (First Responder)"
+msgstr "پذیرش توسط تیم (اولین نفر)"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__team_acceptance_mode
+msgid "Like ride-hailing: SMS team members; the first to accept becomes the assignee."
+msgstr "مشابه اسنپ: SMS به اعضای تیم؛ اولین نفری که «پذیرش» بزند مسئول می‌شود."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__is_provider_accepted_status
+msgid "Provider Accepted Status"
+msgstr "وضعیت پذیرفته‌شده توسط پذیرنده"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__is_provider_accepted_status
+msgid "Requests at this step are considered for provider visit schedule overlap checks."
+msgstr "درخواست‌های در این مرحله برای کنترل همپوشانی زمان حضور پذیرنده در نظر گرفته می‌شوند."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__requires_visit_schedule
+msgid "Visit Schedule on Acceptance"
+msgstr "زمان‌بندی حضور هنگام پذیرش"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_care_workflow_step__requires_visit_schedule
+msgid "The provider must enter visit date and time window when accepting."
+msgstr "پذیرنده هنگام پذیرش باید تاریخ و بازه زمانی حضور را وارد کند."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__send_assignee_customer_sms
+msgid "Assignee SMS to Customer"
+msgstr "SMS پذیرنده به مشتری"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__assignee_customer_sms_body
+msgid "Assignee SMS Text"
+msgstr "متن SMS پذیرنده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__auto_team_id
+msgid "Auto-assign Team"
+msgstr "واگذاری خودکار به تیم"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__auto_user_id
+msgid "Auto-assign User"
+msgstr "واگذاری خودکار به شخص"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_step__action_ids
+msgid "Additional Actions"
+msgstr "اکشن‌های اضافی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_action__name
+#: model:ir.model.fields,field_description:home_care.field_care_insurance__name
+#: model:ir.model.fields,field_description:home_care.field_care_team__name
+#: model:ir.model.fields,field_description:home_care.field_care_request_category__name
+msgid "Name"
+msgstr "نام"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_action__step_id
+#: model:ir.model.fields,field_description:home_care.field_care_request_document__step_id
+#: model:ir.model.fields,field_description:home_care.field_care_request_assignment_offer__step_id
+msgid "Step"
+msgstr "مرحله"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_action__trigger
+msgid "Trigger"
+msgstr "زمان اجرا"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_workflow_action__trigger__on_enter
+msgid "On Enter"
+msgstr "ورود به مرحله"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_workflow_action__trigger__on_exit
+msgid "On Exit"
+msgstr "خروج از مرحله"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_action__action_type
+msgid "Action Type"
+msgstr "نوع اکشن"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_workflow_action__action_type__assign_team
+msgid "Assign Team"
+msgstr "واگذاری تیم"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_workflow_action__action_type__assign_user
+msgid "Assign User"
+msgstr "واگذاری شخص"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_workflow_action__action_type__email
+msgid "Send Email"
+msgstr "ارسال ایمیل"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_workflow_action__action_type__activity
+msgid "Create Activity"
+msgstr "ایجاد Activity"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_action__team_id
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__team_id
+msgid "Team"
+msgstr "تیم"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_action__user_id
+#: model:ir.model.fields,field_description:home_care.field_care_request_step_history__user_id
+msgid "User"
+msgstr "کاربر"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_action__email_template_id
+msgid "Email Template"
+msgstr "قالب ایمیل"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_action__activity_summary
+msgid "Activity Summary"
+msgstr "عنوان Activity"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_workflow_action__activity_note
+msgid "Activity Note"
+msgstr "یادداشت Activity"
+
+#. module: home_care
+#: code:addons/home_care/models/care_workflow.py:0
+msgid "Only one step per workflow can be marked as the cancel step."
+msgstr "در هر فرآیند فقط یک مرحله می‌تواند «مرحله لغو» باشد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_workflow.py:0
+msgid "Only one step per workflow can be marked as provider accepted status."
+msgstr "در هر فرآیند فقط یک مرحله می‌تواند «وضعیت پذیرفته‌شده توسط پذیرنده» باشد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_workflow.py:0
+msgid "Only one step per workflow can consume quota."
+msgstr "در هر فرآیند فقط یک مرحله می‌تواند «مصرف سهمیه» باشد."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__name
+msgid "Request Number"
+msgstr "شماره درخواست"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__partner_id
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement__partner_id
+msgid "Customer"
+msgstr "مشتری"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__request_type
+msgid "Request Type"
+msgstr "نوع درخواست"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_service_request__request_type__package
+msgid "From Package"
+msgstr "از پکیج"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_service_request__request_type__standalone
+msgid "Standalone Purchase"
+msgstr "خرید جداگانه"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__entitlement_id
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement_line__entitlement_id
+msgid "Package Entitlement"
+msgstr "سهمیه پکیج"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__entitlement_domain_ids
+msgid "Allowed Entitlements"
+msgstr "سهمیه‌های مجاز"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__sale_order_line_id
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement__sale_order_line_id
+msgid "Order Line"
+msgstr "خط سفارش"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__sale_order_line_domain_ids
+msgid "Allowed Order Lines"
+msgstr "خطوط سفارش مجاز"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__product_id
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement_line__included_service_id
+msgid "Service"
+msgstr "خدمت"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__product_domain_ids
+msgid "Allowed Services"
+msgstr "خدمات مجاز"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__current_step_id
+msgid "Current Step"
+msgstr "مرحله فعلی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__user_id
+msgid "Assignee"
+msgstr "مسئول"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__preferred_datetime
+msgid "Preferred Time"
+msgstr "زمان ترجیحی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__state
+#: model:ir.model.fields,field_description:home_care.field_care_request_assignment_offer__state
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement__state
+msgid "Status"
+msgstr "وضعیت"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_service_request__state__draft
+msgid "Draft"
+msgstr "پیش‌نویس"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_service_request__state__in_progress
+msgid "In Progress"
+msgstr "در جریان"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_service_request__state__done
+msgid "Done"
+msgstr "انجام‌شده"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_service_request__state__cancelled
+#: model:ir.model.fields.selection,name:home_care.selection__care_request_assignment_offer__state__cancelled
+#: model:ir.model.fields.selection,name:home_care.selection__care_package_entitlement__state__cancelled
+msgid "Cancelled"
+msgstr "لغوشده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__quota_consumed
+msgid "Quota Consumed"
+msgstr "سهمیه مصرف شد"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__document_ids
+msgid "Documents"
+msgstr "مدارک"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__step_history_ids
+msgid "Step History"
+msgstr "تاریخچه مراحل"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__advance_step_label
+msgid "Advance Step Label"
+msgstr "عنوان دکمه مرحله"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__patient_relation
+msgid "Request For"
+msgstr "درخواست برای"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_service_request__patient_relation__self
+msgid "For Myself"
+msgstr "برای خودم"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_service_request__patient_relation__other
+msgid "For Someone Else"
+msgstr "برای دیگری"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__patient_first_name
+msgid "Patient First Name"
+msgstr "نام بیمار"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__patient_last_name
+msgid "Patient Last Name"
+msgstr "نام خانوادگی بیمار"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__patient_national_id
+msgid "National ID"
+msgstr "کد ملی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__patient_full_name
+msgid "Patient Full Name"
+msgstr "نام کامل بیمار"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__patient_case_code
+msgid "Case / Patient Code"
+msgstr "کد پرونده / کد بیمار"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__patient_age
+msgid "Age"
+msgstr "سن"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__patient_gender
+msgid "Gender"
+msgstr "جنسیت"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_service_request__patient_gender__male
+msgid "Male"
+msgstr "مرد"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_service_request__patient_gender__female
+msgid "Female"
+msgstr "زن"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_service_request__patient_gender__other
+msgid "Other"
+msgstr "سایر"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__patient_phone
+msgid "Patient Phone"
+msgstr "شماره تماس بیمار"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__patient_mobile
+msgid "Patient Mobile"
+msgstr "شماره تماس همراه"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__patient_address
+msgid "Patient Address"
+msgstr "آدرس محل سکونت بیمار"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__insurance_primary_id
+msgid "Primary Insurance"
+msgstr "بیمه پایه"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__insurance_primary_name
+msgid "Primary Insurance Name"
+msgstr "نام بیمه"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__insurance_primary_number
+msgid "Insurance / Booklet Number"
+msgstr "شماره بیمه / دفترچه"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__insurance_primary_policy
+msgid "Contract / Insured Number"
+msgstr "شماره قرارداد / بیمه‌شده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__insurance_supplementary_id
+msgid "Supplementary Insurance"
+msgstr "بیمه تکمیلی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__insurance_supplementary_name
+msgid "Supplementary Insurance Name"
+msgstr "نام بیمه تکمیلی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__insurance_supplementary_number
+msgid "Supplementary Insurance Number"
+msgstr "شماره بیمه تکمیلی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__insurance_supplementary_policy
+msgid "Supplementary Contract Number"
+msgstr "شماره قرارداد تکمیلی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__assignment_offer_ids
+msgid "Assignment Offers"
+msgstr "پیشنهادهای پذیرش"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__activity_count
+msgid "Activity Count"
+msgstr "تعداد فعالیت"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__assignee_name
+msgid "Provider Name"
+msgstr "نام پذیرنده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__assignee_team_name
+msgid "Provider Team"
+msgstr "تیم پذیرنده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__assignee_confirmed
+msgid "Provider Confirmed"
+msgstr "پذیرنده تأیید شده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__preferred_datetime_start
+msgid "Preferred Window Start"
+msgstr "شروع بازه ترجیحی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__preferred_datetime_end
+msgid "Preferred Window End"
+msgstr "پایان بازه ترجیحی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__preferred_schedule_display
+msgid "Preferred Window"
+msgstr "بازه ترجیحی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__provider_complete_note
+msgid "Provider Completion Notes"
+msgstr "توضیحات تکمیل پذیرنده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__provider_cancel_note
+msgid "Provider Cancellation Notes"
+msgstr "توضیحات لغو پذیرنده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__visit_datetime_start
+msgid "Visit Start"
+msgstr "شروع حضور"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__visit_datetime_end
+msgid "Visit End"
+msgstr "پایان حضور"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_service_request__visit_schedule_display
+msgid "Visit Window"
+msgstr "بازه حضور"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_request_step_history__entered_at
+msgid "Entered"
+msgstr "ورود"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_request_step_history__exited_at
+msgid "Exited"
+msgstr "خروج"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_insurance__insurance_type
+msgid "Type"
+msgstr "نوع"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_insurance__insurance_type__primary
+msgid "Primary Insurance"
+msgstr "بیمه پایه"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_insurance__insurance_type__supplementary
+msgid "Supplementary Insurance"
+msgstr "بیمه تکمیلی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_insurance__code
+#: model:ir.model.fields,field_description:home_care.field_care_request_category__code
+msgid "Code"
+msgstr "کد"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_team__color
+msgid "Color"
+msgstr "رنگ"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_team__leader_id
+msgid "Team Leader"
+msgstr "سرپرست تیم"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_team__member_ids
+msgid "Members"
+msgstr "اعضا"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_team__request_count
+msgid "Request Count"
+msgstr "تعداد درخواست"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_request_document__name
+msgid "File Name"
+msgstr "نام فایل"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_request_document__request_id
+#: model:ir.model.fields,field_description:home_care.field_care_request_assignment_offer__request_id
+#: model:ir.model.fields,field_description:home_care.field_care_accept_assignment_wizard__request_id
+#: model:ir.model.fields,field_description:home_care.field_care_change_assignee_wizard__request_id
+msgid "Request"
+msgstr "درخواست"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_request_document__attachment_id
+msgid "Attachment"
+msgstr "پیوست"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_request_document__uploaded_by_id
+msgid "Uploaded By"
+msgstr "آپلودکننده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_request_document__note
+msgid "Note"
+msgstr "یادداشت"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_request_assignment_offer__user_id
+msgid "Team Member"
+msgstr "عضو تیم"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_request_assignment_offer__state__pending
+msgid "Pending"
+msgstr "در انتظار"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_request_assignment_offer__state__accepted
+msgid "Accepted"
+msgstr "پذیرفته‌شده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_request_assignment_offer__accepted_at
+msgid "Accepted At"
+msgstr "زمان پذیرش"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_request_assignment_offer__sms_sent
+msgid "SMS Sent"
+msgstr "SMS ارسال شد"
+
+#. module: home_care
+#: model:ir.model.constraint,message:home_care.constraint_care_request_assignment_offer_request_user_step_uniq
+msgid "Each member can have only one offer per step."
+msgstr "هر عضو فقط یک پیشنهاد برای هر مرحله می‌تواند داشته باشد."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement__name
+msgid "Number"
+msgstr "شماره"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement__package_product_id
+#: model:ir.model.fields,field_description:home_care.field_care_package_line__package_product_id
+msgid "Package"
+msgstr "پکیج"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement__subscription_id
+msgid "Subscription"
+msgstr "اشتراک"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement__date_start
+msgid "Start Date"
+msgstr "شروع"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement__date_end
+msgid "End Date"
+msgstr "پایان"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_package_entitlement__state__active
+msgid "Active"
+msgstr "فعال"
+
+#. module: home_care
+#: model:ir.model.fields.selection,name:home_care.selection__care_package_entitlement__state__expired
+msgid "Expired"
+msgstr "منقضی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement__line_ids
+msgid "Service Entitlements"
+msgstr "سهمیه خدمات"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement__request_ids
+#: model:ir.model.fields,field_description:home_care.field_sale_order__care_request_ids
+#: model:ir.model.fields,field_description:home_care.field_sale_order_line__care_request_ids
+msgid "Requests"
+msgstr "درخواست‌ها"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement_line__qty_total
+msgid "Total"
+msgstr "کل"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement_line__qty_used
+msgid "Used"
+msgstr "مصرف‌شده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_package_entitlement_line__qty_remaining
+msgid "Remaining"
+msgstr "باقیمانده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_package_line__included_service_id
+msgid "Included Service"
+msgstr "خدمت زیرمجموعه"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_package_line__quantity
+msgid "Quantity"
+msgstr "تعداد"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_request_category__workflow_id
+msgid "Default Workflow"
+msgstr "فرآیند پیش‌فرض"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_request_category__default_team_id
+#: model:ir.model.fields,field_description:home_care.field_product_template__default_care_team_id
+msgid "Default Team"
+msgstr "تیم پیش‌فرض"
+
+#. module: home_care
+#: model:ir.model.constraint,message:home_care.constraint_care_request_category_code_uniq
+msgid "Category code must be unique."
+msgstr "کد دسته‌بندی باید یکتا باشد."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_product_template__is_care_package
+msgid "Care Package"
+msgstr "پکیج مراقبت"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_product_template__is_care_package
+msgid "Subscription product that includes multiple included services."
+msgstr "محصول اشتراکی که شامل چند خدمت زیرمجموعه است."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_product_template__is_care_service
+msgid "Care Service"
+msgstr "خدمت مراقبت"
+
+#. module: home_care
+#: model:ir.model.fields,help:home_care.field_product_template__is_care_service
+msgid "Service that can be requested in the home care system."
+msgstr "خدمت قابل درخواست در سیستم مراقبت در منزل."
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_product_template__care_package_line_ids
+msgid "Package Services"
+msgstr "خدمات پکیج"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_product_template__request_category_id
+msgid "Request Category"
+msgstr "دسته‌بندی درخواست"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_account_move__care_service_request_id
+msgid "Care Request"
+msgstr "درخواست مراقبت"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_account_move__care_workflow_step_id
+msgid "Workflow Step"
+msgstr "مرحله فرآیند"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_sale_order__care_entitlement_ids
+msgid "Care Entitlements"
+msgstr "سهمیه‌های مراقبت"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_sale_order_line__care_remaining_qty
+msgid "Remaining Quota"
+msgstr "سهمیه باقیمانده"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_change_assignee_wizard__current_user_id
+msgid "Current Provider"
+msgstr "پذیرنده فعلی"
+
+#. module: home_care
+#: model:ir.model.fields,field_description:home_care.field_care_change_assignee_wizard__new_user_id
+msgid "New Provider"
+msgstr "پذیرنده جدید"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_accept_assignment_wizard_view_form
+msgid "Accept Request"
+msgstr "پذیرش درخواست"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_accept_assignment_wizard_view_form
+msgid "Accept"
+msgstr "پذیرش"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_change_assignee_wizard_view_form
+msgid "Change Provider"
+msgstr "تغییر پذیرنده"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_change_assignee_wizard_view_form
+msgid "Confirm Change"
+msgstr "تأیید تغییر"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_insurance_view_search
+msgid "Primary Insurance"
+msgstr "بیمه پایه"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_insurance_view_search
+msgid "Supplementary Insurance"
+msgstr "بیمه تکمیلی"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_graph
+msgid "Requests"
+msgstr "درخواست‌ها"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_service_request_view_pivot
+msgid "Request Analysis"
+msgstr "تحلیل درخواست‌ها"
+
+#. module: home_care
+#: model:ir.actions.act_window,name:home_care.care_service_request_action_report
+msgid "Request Reports"
+msgstr "گزارش درخواست‌ها"
+
+#. module: home_care
+#: model:ir.ui.menu,name:home_care.menu_care_reports
+msgid "Reports"
+msgstr "گزارش‌ها"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_entitlement_view_form
+msgid "Service Entitlements"
+msgstr "سهمیه خدمات"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.care_team_view_form
+msgid "Team Members"
+msgstr "اعضای تیم"
+
+#. module: home_care
+#: model:ir.actions.act_window,name:home_care.care_team_action
+msgid "Care Teams"
+msgstr "تیم‌های مراقبت"
+
+#. module: home_care
+#: code:addons/home_care/models/care_team.py:0
+msgid "Team Requests"
+msgstr "درخواست‌های تیم"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.product_template_form_care
+msgid "Home Care"
+msgstr "مراقبت در منزل"
+
+#. module: home_care
+#: model_terms:ir.ui.view,arch_db:home_care.product_template_form_care
+msgid "Package Services"
+msgstr "خدمات پکیج"
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "The selected package entitlement does not belong to this customer."
+msgstr "سهمیه پکیج انتخاب‌شده متعلق به این مشتری نیست."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "This service is not available in the selected package entitlement."
+msgstr "این خدمت در سهمیه پکیج انتخاب‌شده موجود نیست."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "The selected order line does not belong to this customer."
+msgstr "خط سفارش انتخاب‌شده متعلق به این مشتری نیست."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "The service must match the order line product."
+msgstr "خدمت باید همان محصول خط سفارش باشد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "Service \"%s\" has no request category. Configure it on the product first."
+msgstr "خدمت «%s» دسته‌بندی درخواست ندارد. ابتدا روی محصول تنظیم کنید."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "The assignee must be a member of team \"%s\"."
+msgstr "مسئول انتخاب‌شده باید عضو تیم «%s» باشد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "Start Workflow"
+msgstr "شروع فرآیند"
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "Complete Request"
+msgstr "تکمیل درخواست"
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "No workflow step is defined for this category."
+msgstr "برای این دسته‌بندی مرحله‌ای در فرآیند تعریف نشده است."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "Current step is not set."
+msgstr "مرحله فعلی مشخص نیست."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "Request completed successfully."
+msgstr "درخواست با موفقیت تکمیل شد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "The selected step does not belong to this request workflow."
+msgstr "مرحله انتخاب‌شده متعلق به فرآیند این درخواست نیست."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "No workflow is defined for category \"%s\"."
+msgstr "برای دسته‌بندی «%s» فرآیندی تعریف نشده است."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "Document upload is required at step \"%s\" before proceeding."
+msgstr "برای رفتن به مرحله بعد، آپلود مدارک در مرحله «%s» الزامی است."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "Package entitlement is not set."
+msgstr "سهمیه پکیج مشخص نیست."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "Order line is not set."
+msgstr "خط سفارش مشخص نیست."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "The purchase quota for this service is exhausted."
+msgstr "سهمیه خرید این خدمت تمام شده است."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "Could not send SMS: customer phone number is missing."
+msgstr "ارسال SMS ممکن نبود: شماره تماس مشتری ثبت نشده."
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "SMS sent to customer: %s"
+msgstr "SMS به مشتری ارسال شد: %s"
+
+#. module: home_care
+#: code:addons/home_care/models/care_service_request.py:0
+msgid "Failed to send SMS to customer."
+msgstr "خطا در ارسال SMS به مشتری."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "There is no confirmed provider to change."
+msgstr "پذیرنده تأیید‌شده‌ای برای تغییر وجود ندارد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Request %s was unassigned from you. Customer: %s — Service: %s"
+msgstr "ارجاع درخواست %s از شما برداشته شد. مشتری: %s — خدمت: %s"
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Request %s was assigned to you. Customer: %s — Service: %s"
+msgstr "درخواست %s به شما ارجاع شد. مشتری: %s — خدمت: %s"
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "The provider is confirmed. Use the \"Change Provider\" button to reassign."
+msgstr "پذیرنده تأیید شده است. برای تغییر از دکمه «تغییر پذیرنده» استفاده کنید."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Select an assignee first."
+msgstr "ابتدا مسئول را انتخاب کنید."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "The provider is already confirmed."
+msgstr "پذیرنده قبلاً تأیید شده است."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Assignee set manually: %s"
+msgstr "مسئول به صورت دستی تعیین شد: %s"
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Only the assigned provider can mark the service as completed."
+msgstr "فقط پذیرنده مسئول می‌تواند خدمت را انجام‌شده اعلام کند."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Service completion is not allowed at this step."
+msgstr "در این مرحله امکان اعلام انجام خدمت وجود ندارد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Completion notes by provider: %s"
+msgstr "توضیحات تکمیل توسط پذیرنده: %s"
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Only the assigned provider can cancel the request."
+msgstr "فقط پذیرنده مسئول می‌تواند درخواست را لغو کند."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Provider cancellation is not allowed at this step."
+msgstr "در این مرحله امکان لغو توسط پذیرنده وجود ندارد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Cancellation notes by provider: %s"
+msgstr "توضیحات لغو توسط پذیرنده: %s"
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "You cannot accept this request."
+msgstr "امکان پذیرش این درخواست برای شما وجود ندارد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "You have no active offer to accept."
+msgstr "پیشنهاد فعالی برای پذیرش شما وجود ندارد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "This request was already accepted by %s."
+msgstr "این درخواست قبلاً توسط %s پذیرفته شده است."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Visit date and time window are required."
+msgstr "تاریخ و بازه زمانی حضور الزامی است."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid " — Visit time: %s"
+msgstr " — زمان حضور: %s"
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Request accepted by %s.%s"
+msgstr "درخواست توسط %s پذیرفته شد.%s"
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "This request is not in team acceptance mode."
+msgstr "این درخواست در حالت پذیرش تیمی نیست."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Customer rejected provider %s."
+msgstr "مشتری پذیرنده %s را رد کرد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Customer cancellation is not allowed at the current step."
+msgstr "در مرحله فعلی امکان لغو درخواست توسط مشتری وجود ندارد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Could not send SMS to %s: no phone number on file."
+msgstr "ارسال SMS به %s ممکن نبود: شماره تماس ثبت نشده."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "Failed to send SMS to %s"
+msgstr "خطا در ارسال SMS به %s"
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_team.py:0
+msgid "A team member must accept the request before step \"%s\"."
+msgstr "برای مرحله «%s» ابتدا یک عضو تیم باید درخواست را بپذیرد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_schedule.py:0
+msgid "Visit end time must be after the start time."
+msgstr "زمان پایان حضور باید بعد از زمان شروع باشد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_schedule.py:0
+msgid "Visit time overlaps with request \"%s\" (%s)."
+msgstr "بازه زمانی حضور با درخواست «%s» (%s) همپوشانی دارد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_schedule.py:0
+msgid "Visit time must fall within the customer preferred window (%s)."
+msgstr "بازه زمانی حضور باید داخل بازه درخواستی مشتری (%s) باشد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_request_document.py:0
+msgid "Attachment file not found."
+msgstr "فایل پیوست وجود ندارد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_package_entitlement.py:0
+msgid "This service is not included in your package entitlement."
+msgstr "این خدمت در سهمیه پکیج شما وجود ندارد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_package_entitlement.py:0
+msgid "The quota for this service is exhausted."
+msgstr "سهمیه این خدمت تمام شده است."
+
+#. module: home_care
+#: code:addons/home_care/models/care_package_line.py:0
+msgid "Package service quantity must be greater than zero."
+msgstr "تعداد خدمت در پکیج باید بزرگ‌تر از صفر باشد."
+
+#. module: home_care
+#: code:addons/home_care/models/care_package_line.py:0
+msgid "A package cannot include itself."
+msgstr "پکیج نمی‌تواند شامل خودش باشد."
+
+#. module: home_care
+#: code:addons/home_care/models/product_template.py:0
+msgid "A care package must be defined as a subscription product."
+msgstr "پکیج مراقبت باید به‌عنوان محصول اشتراک (Subscription) تعریف شود."
+
+#. module: home_care
+#: code:addons/home_care/models/product_template.py:0
+msgid "A product cannot be both a package and a service."
+msgstr "یک محصول نمی‌تواند هم‌زمان پکیج و خدمت باشد."
+
+#. module: home_care
+#: code:addons/home_care/models/product_template.py:0
+msgid "Request category is required for care services."
+msgstr "برای خدمت مراقبت، دسته‌بندی درخواست الزامی است."
+
+#. module: home_care
+#: code:addons/home_care/wizard/care_change_assignee_wizard.py:0
+msgid "The provider is not confirmed yet."
+msgstr "پذیرنده هنوز تأیید نشده است."
+
+#. module: home_care
+#: code:addons/home_care/wizard/care_change_assignee_wizard.py:0
+msgid "Select a new provider."
+msgstr "پذیرنده جدید را انتخاب کنید."
+
+#. module: home_care
+#: code:addons/home_care/wizard/care_change_assignee_wizard.py:0
+msgid "The new provider is the same as the current provider."
+msgstr "پذیرنده جدید با پذیرنده فعلی یکسان است."
+
+#. module: home_care
+#: code:addons/home_care/wizard/care_change_assignee_wizard.py:0
+msgid "The new provider must be a team member."
+msgstr "پذیرنده جدید باید عضو تیم باشد."
+

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="care_workflow_template_view_list" model="ir.ui.view">
+        <field name="name">care.workflow.template.list</field>
+        <field name="model">care.workflow.template</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="step_count"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="care_workflow_template_view_form" model="ir.ui.view">
+        <field name="name">care.workflow.template.form</field>
+        <field name="model">care.workflow.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="category_id"/>
+                        <field name="active"/>
+                    </group>
+                    <field name="description"/>
+                    <notebook>
+                        <page string="Steps">
+                            <field name="step_ids">
+                                <list>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="requires_attachment"/>
+                                    <field name="consumes_quota"/>
+                                    <field name="send_sms"/>
+                                    <field name="allow_portal_upload"/>
+                                    <field name="allow_portal_advance"/>
+                                    <field name="allow_customer_cancel"/>
+                                    <field name="team_acceptance_mode"/>
+                                    <field name="is_provider_accepted_status"/>
+                                    <field name="is_cancel_step"/>
+                                    <field name="allow_create_invoice" string="Create Invoice"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="sequence"/>
+                                            <field name="requires_attachment"/>
+                                            <field name="allow_portal_upload"/>
+                                            <field name="allow_portal_advance"/>
+                                            <field name="consumes_quota"/>
+                                            <field name="is_cancel_step"/>
+                                            <field name="allow_create_invoice" string="Create Invoice"/>
+                                            <field name="allow_provider_complete"/>
+                                            <field name="allow_provider_cancel"/>
+                                            <field name="allow_customer_cancel"/>
+                                            <field name="invoice_product_id" invisible="not allow_create_invoice"/>
+                                        </group>
+                                        <group>
+                                            <field name="auto_team_id"/>
+                                            <field name="auto_user_id"/>
+                                        </group>
+                                    </group>
+                                    <group string="SMS">
+                                        <field name="send_sms"/>
+                                        <field name="sms_body" invisible="not send_sms" colspan="2" nolabel="1"/>
+                                        <field name="send_team_sms"/>
+                                        <field name="team_sms_body" invisible="not send_team_sms" colspan="2" nolabel="1"/>
+                                        <field name="team_acceptance_mode"/>
+                                        <field name="requires_visit_schedule" invisible="not team_acceptance_mode"/>
+                                        <field name="is_provider_accepted_status"/>
+                                        <field name="send_assignee_customer_sms" invisible="not team_acceptance_mode"/>
+                                        <field name="assignee_customer_sms_body"
+                                               invisible="not send_assignee_customer_sms" colspan="2" nolabel="1"/>
+                                    </group>
+                                    <field name="portal_instruction"/>
+                                    <field name="description"/>
+                                    <field name="action_ids">
+                                        <list editable="bottom">
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="name"/>
+                                            <field name="trigger"/>
+                                            <field name="action_type"/>
+                                            <field name="team_id"/>
+                                            <field name="user_id"/>
+                                            <field name="email_template_id"/>
+                                            <field name="activity_summary"/>
+                                        </list>
+                                    </field>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="care_workflow_template_action" model="ir.actions.act_window">
+        <field name="name">Workflows</field>
+        <field name="res_model">care.workflow.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

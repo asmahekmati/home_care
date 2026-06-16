@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_care_request_invoice_wizard_popup" model="ir.actions.act_window">
+        <field name="name">Create Invoice</field>
+        <field name="res_model">care.request.invoice.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="care_request_invoice_wizard_view_form" model="ir.ui.view">
+        <field name="name">care.request.invoice.wizard.form</field>
+        <field name="model">care.request.invoice.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Invoice">
+                <group>
+                    <field name="request_id" readonly="1"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="return_url" invisible="1"/>
+                </group>
+                <field name="line_ids">
+                    <list editable="bottom">
+                        <control>
+                            <create name="add_line_control" string="Add a line"/>
+                            <create name="add_section_control" string="Add a section"
+                                    context="{'default_display_type': 'line_section'}"/>
+                            <create name="add_note_control" string="Add a note"
+                                    context="{'default_display_type': 'line_note'}"/>
+                        </control>
+                        <field name="display_type" column_invisible="True"/>
+                        <field name="product_id"
+                               invisible="display_type != 'product'"
+                               required="display_type == 'product'"/>
+                        <field name="name"
+                               invisible="display_type == 'product'"
+                               required="display_type != 'product'"/>
+                        <field name="quantity" invisible="display_type != 'product'"/>
+                        <field name="price_unit" invisible="display_type != 'product'"/>
+                        <field name="discount" invisible="display_type != 'product'"/>
+                        <field name="tax_ids" widget="many2many_tags" invisible="display_type != 'product'"/>
+                        <field name="description" invisible="display_type != 'product'" optional="show"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_create_invoice" string="Create Invoice" type="object" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

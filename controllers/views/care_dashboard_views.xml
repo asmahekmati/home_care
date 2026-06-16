@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="care_service_request_view_graph" model="ir.ui.view">
+        <field name="name">care.service.request.graph</field>
+        <field name="model">care.service.request</field>
+        <field name="arch" type="xml">
+            <graph string="Requests" type="bar" stacked="True">
+                <field name="state"/>
+                <field name="category_id"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="care_service_request_view_pivot" model="ir.ui.view">
+        <field name="name">care.service.request.pivot</field>
+        <field name="model">care.service.request</field>
+        <field name="arch" type="xml">
+            <pivot string="Request Analysis">
+                <field name="category_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="team_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="care_service_request_action_report" model="ir.actions.act_window">
+        <field name="name">Request Reports</field>
+        <field name="res_model">care.service.request</field>
+        <field name="view_mode">graph,pivot,list,kanban</field>
+    </record>
+
+    <menuitem id="menu_care_reports"
+              name="Reports"
+              parent="menu_home_care_root"
+              action="care_service_request_action_report"
+              sequence="15"/>
+</odoo>

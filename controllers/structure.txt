@@ -1,0 +1,106 @@
+Folder PATH listing for volume OS
+Volume serial number is 6E43-882F
+C:.
+³   structure.txt
+³   __init__.py
+³   __manifest__.py
+³   
+ÃÄÄÄ.idea
+³   ³   .gitignore
+³   ³   home_care.iml
+³   ³   misc.xml
+³   ³   modules.xml
+³   ³   vcs.xml
+³   ³   
+³   ÀÄÄÄinspectionProfiles
+³           profiles_settings.xml
+³           
+ÃÄÄÄcontrollers
+³   ³   portal.py
+³   ³   portal_provider.py
+³   ³   __init__.py
+³   ³   
+³   ÀÄÄÄ__pycache__
+³           portal.cpython-312.pyc
+³           portal_provider.cpython-312.pyc
+³           __init__.cpython-312.pyc
+³           
+ÃÄÄÄdata
+³       care_team_sync.xml
+³       request_category_data.xml
+³       sequence.xml
+³       
+ÃÄÄÄmodels
+³   ³   account_move.py
+³   ³   care_package_entitlement.py
+³   ³   care_package_line.py
+³   ³   care_request_assignment.py
+³   ³   care_request_category.py
+³   ³   care_request_document.py
+³   ³   care_request_invoice.py
+³   ³   care_request_patient.py
+³   ³   care_request_team.py
+³   ³   care_service_request.py
+³   ³   care_team.py
+³   ³   care_workflow.py
+³   ³   product_template.py
+³   ³   sale_order.py
+³   ³   __init__.py
+³   ³   
+³   ÀÄÄÄ__pycache__
+³           account_move.cpython-312.pyc
+³           care_package_entitlement.cpython-312.pyc
+³           care_package_line.cpython-312.pyc
+³           care_request_assignment.cpython-312.pyc
+³           care_request_category.cpython-312.pyc
+³           care_request_document.cpython-312.pyc
+³           care_request_invoice.cpython-312.pyc
+³           care_request_patient.cpython-312.pyc
+³           care_request_team.cpython-312.pyc
+³           care_service_request.cpython-312.pyc
+³           care_team.cpython-312.pyc
+³           care_workflow.cpython-312.pyc
+³           product_template.cpython-312.pyc
+³           sale_order.cpython-312.pyc
+³           __init__.cpython-312.pyc
+³           
+ÃÄÄÄsecurity
+³       home_care_security.xml
+³       ir.model.access.csv
+³       
+ÃÄÄÄstatic
+³   ÀÄÄÄsrc
+³       ÃÄÄÄjs
+³       ³       care_portal.js
+³       ³       care_portal_invoice.js
+³       ³       portal_home_counters.js
+³       ³       
+³       ÀÄÄÄscss
+³               home_care_portal.scss
+³               
+ÃÄÄÄviews
+³       care_dashboard_views.xml
+³       care_entitlement_views.xml
+³       care_request_category_views.xml
+³       care_service_request_views.xml
+³       care_team_views.xml
+³       care_workflow_views.xml
+³       menu.xml
+³       portal_templates.xml
+³       product_template_views.xml
+³       
+ÃÄÄÄwizard
+³   ³   care_change_assignee_wizard.py
+³   ³   care_change_assignee_wizard_views.xml
+³   ³   care_invoice_wizard.py
+³   ³   care_invoice_wizard_views.xml
+³   ³   __init__.py
+³   ³   
+³   ÀÄÄÄ__pycache__
+³           care_change_assignee_wizard.cpython-312.pyc
+³           care_invoice_wizard.cpython-312.pyc
+³           __init__.cpython-312.pyc
+³           
+ÀÄÄÄ__pycache__
+        __init__.cpython-312.pyc
+        
